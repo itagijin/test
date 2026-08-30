@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linguifrica — Classical Languages, African Voices</title>
-<meta name="description" content="Linguifrica transcribes and translates speech from classical languages into African languages — speech-to-text, access services and education programmes.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='35' cy='35' r='26' fill='%23F2762E'/><circle cx='65' cy='35' r='26' fill='%2357B14A' opacity='.9'/><circle cx='35' cy='65' r='26' fill='%231B3A6E' opacity='.9'/><circle cx='65' cy='65' r='26' fill='%236B4AA8' opacity='.9'/></svg>">
+<title>babalang — Classical Languages, African Voices</title>
+<meta name="description" content="babalang transcribes and translates speech from classical languages into African languages — speech-to-text, access services and education programmes.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='35' cy='35' r='26' fill='%23C85227'/><circle cx='65' cy='35' r='26' fill='%231D3B2A' opacity='.9'/><circle cx='35' cy='65' r='26' fill='%231B325F' opacity='.9'/><circle cx='65' cy='65' r='26' fill='%23E5A823' opacity='.9'/></svg>">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/600.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/700.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/600-italic.css">
@@ -14,18 +14,28 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5/700.css">
 <style>
 /* ════════════════════════════════════════════════════════════
-   LINGUIFRICA · palette: desert orange / grass green / dark blue / mid purple — always together, ~33% each
+   babalang · palette: cream / forest green / terracotta / golden yellow / navy / warm sand
    ════════════════════════════════════════════════════════════ */
 :root{
-  --orange:#F2762E; --orange-600:#DE5A0F; --orange-100:#FFE7D4;
-  --green:#57B14A;  --green-600:#3E8E34;  --green-100:#E2F4DC;
-  --blue:#1B3A6E;   --blue-900:#122A52;   --blue-100:#DCE6F7;
-  --purple:#6B4AA8; --purple-600:#57399B; --purple-100:#EAE2F8;
-  --cream:#FFF7EC;  --paper:#FFFFFF;
-  --ink:#1D2136;    --ink-60:rgba(29,33,54,.62); --ink-08:rgba(29,33,54,.08);
+  --cream:#F5EFE0;
+  --forest:#1D3B2A;
+  --terracotta:#C85227;
+  --terracotta-600:#A8421B;
+  --terracotta-100:#F9EBE4;
+  --golden:#E5A823;
+  --golden-600:#C48F17;
+  --golden-100:#FEF6E0;
+  --navy:#1B325F;
+  --navy-900:#0F1D3A;
+  --navy-100:#E0E6F0;
+  --sand:#E6D0AC;
+  --paper:#FFFFFF;
+  --ink:#1D3B2A;
+  --ink-60:rgba(29,59,42,.62);
+  --ink-08:rgba(29,59,42,.08);
   --r-sm:14px; --r-md:22px; --r-lg:30px; --r-xl:44px;
-  --shadow:0 10px 30px rgba(27,58,110,.10);
-  --shadow-lg:0 26px 60px rgba(27,58,110,.18);
+  --shadow:0 10px 30px rgba(27,50,95,.10);
+  --shadow-lg:0 26px 60px rgba(27,50,95,.18);
   --fd:'Fraunces',Georgia,serif; --fb:'Space Grotesk',system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -36,8 +46,8 @@ a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer;border:none;background:none}
 input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
 section[id]{scroll-margin-top:96px}
-::selection{background:var(--orange);color:#fff}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:8px}
+::selection{background:var(--terracotta);color:#fff}
+:focus-visible{outline:3px solid var(--terracotta);outline-offset:3px;border-radius:8px}
 
 .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
 .sec{padding:96px 0}
@@ -47,25 +57,25 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 
 .quad{display:inline-flex;gap:5px;align-items:center}
 .quad i{width:9px;height:9px;border-radius:50%}
-.quad i:nth-child(1){background:var(--orange)}
-.quad i:nth-child(2){background:var(--green)}
-.quad i:nth-child(3){background:var(--blue)}
-.quad i:nth-child(4){background:var(--purple)}
+.quad i:nth-child(1){background:var(--terracotta)}
+.quad i:nth-child(2){background:var(--forest)}
+.quad i:nth-child(3){background:var(--navy)}
+.quad i:nth-child(4){background:var(--golden)}
 
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:999px;margin-bottom:20px}
-.ey-o{background:var(--orange-100);color:var(--orange-600)}
-.ey-g{background:var(--green-100);color:var(--green-600)}
-.ey-b{background:var(--blue-100);color:var(--blue)}
-.ey-p{background:var(--purple-100);color:var(--purple-600)}
+.ey-o{background:var(--terracotta-100);color:var(--terracotta-600)}
+.ey-g{background:var(--navy-100);color:var(--forest)}
+.ey-b{background:var(--navy-100);color:var(--navy)}
+.ey-p{background:var(--golden-100);color:var(--golden-600)}
 
 .btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.98rem;padding:15px 26px;border-radius:var(--r-sm);transition:transform .25s,box-shadow .25s,background .25s;letter-spacing:.01em}
 .btn:active{transform:scale(.97)}
-.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(242,118,46,.35)}
-.btn-o:hover{background:var(--orange-600);transform:translateY(-3px)}
-.btn-g{background:var(--green);color:#fff;box-shadow:0 10px 24px rgba(87,177,74,.35)}
-.btn-g:hover{background:var(--green-600);transform:translateY(-3px)}
-.btn-ghost{background:#fff;color:var(--blue);border:2px solid var(--blue-100)}
-.btn-ghost:hover{border-color:var(--green);color:var(--green-600);transform:translateY(-3px)}
+.btn-o{background:var(--terracotta);color:#fff;box-shadow:0 10px 24px rgba(200,82,39,.35)}
+.btn-o:hover{background:var(--terracotta-600);transform:translateY(-3px)}
+.btn-g{background:var(--forest);color:#fff;box-shadow:0 10px 24px rgba(29,59,42,.35)}
+.btn-g:hover{background:var(--forest);transform:translateY(-3px)}
+.btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy-100)}
+.btn-ghost:hover{border-color:var(--forest);color:var(--forest);transform:translateY(-3px)}
 .btn-sm{padding:10px 18px;font-size:.9rem}
 
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -76,22 +86,22 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px;background:rgba(255,250,241,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--ink-08);border-radius:999px;padding:9px 10px 9px 20px;box-shadow:var(--shadow)}
 .logo{display:flex;align-items:center;gap:11px;font-family:var(--fd);font-weight:700;font-size:1.28rem}
 .logo .lt{white-space:nowrap;letter-spacing:0}
-.logo .lt b{color:var(--orange-600);margin:0;padding:0}
+.logo .lt b{color:var(--terracotta-600);margin:0;padding:0}
 .nav-links{display:flex;gap:2px;margin-left:auto}
 .nav-links a{padding:9px 14px;border-radius:999px;font-weight:500;font-size:.93rem;transition:background .25s,color .25s}
-.nav-links a:hover{background:var(--orange-100);color:var(--orange-600)}
-.burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:14px;background:var(--blue);color:#fff;font-size:1.2rem;place-items:center}
+.nav-links a:hover{background:var(--terracotta-100);color:var(--terracotta-600)}
+.burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:14px;background:var(--navy);color:#fff;font-size:1.2rem;place-items:center}
 .mobile-menu{position:fixed;top:80px;left:16px;right:16px;z-index:59;background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);padding:16px;display:none;flex-direction:column;gap:4px}
 .mobile-menu.open{display:flex}
 .mobile-menu a{padding:13px 18px;border-radius:var(--r-sm);font-weight:600}
-.mobile-menu a:hover{background:var(--green-100);color:var(--green-600)}
+.mobile-menu a:hover{background:var(--navy-100);color:var(--forest)}
 
 /* ── HERO ───────────────────────────────────────────── */
 .hero{padding:168px 0 96px;position:relative}
-.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(242,118,46,.10) 1.5px,transparent 1.5px);background-size:26px 26px;pointer-events:none}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(200,82,39,.10) 1.5px,transparent 1.5px);background-size:26px 26px;pointer-events:none}
 .hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:60px;align-items:center;position:relative}
 .hero h1{font-size:clamp(2.7rem,5.4vw,4.35rem);margin:6px 0 22px}
-.hero h1 em{font-style:italic;color:var(--orange-600);position:relative;white-space:nowrap}
+.hero h1 em{font-style:italic;color:var(--terracotta-600);position:relative;white-space:nowrap}
 .hero h1 em svg{position:absolute;left:0;right:0;bottom:-.18em;width:100%;height:.32em}
 .hero .sub{margin-bottom:32px}
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
@@ -100,32 +110,32 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .hbadge i{width:8px;height:8px;border-radius:50%}
 .hero-art{position:relative}
 .hero-art .back1,.hero-art .back2{position:absolute;border-radius:var(--r-xl);z-index:0}
-.hero-art .back1{inset:26px -18px -22px 30px;background:var(--green);opacity:.9;transform:rotate(-3deg)}
-.hero-art .back2{inset:-20px 34px 40px -24px;background:var(--purple);opacity:.85;transform:rotate(2.5deg)}
+.hero-art .back1{inset:26px -18px -22px 30px;background:var(--forest);opacity:.9;transform:rotate(-3deg)}
+.hero-art .back2{inset:-20px 34px 40px -24px;background:var(--golden);opacity:.85;transform:rotate(2.5deg)}
 .hero-art .frame{position:relative;z-index:1;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(1deg);background:#fff}
 .hero-art .frame img{width:100%;height:100%;object-fit:cover}
 .fchip{position:absolute;z-index:2;background:#fff;border-radius:18px;padding:12px 16px;box-shadow:var(--shadow-lg);font-size:.82rem;font-weight:600;display:flex;flex-direction:column;gap:2px;animation:floaty 5s ease-in-out infinite}
 .fchip small{font-weight:500;color:var(--ink-60)}
-.fchip .arr{color:var(--orange-600)}
-.fc1{top:8%;left:-7%;border-top:5px solid var(--orange)}
-.fc2{bottom:12%;right:-5%;border-top:5px solid var(--green);animation-delay:1.4s}
-.fc3{top:46%;right:-9%;border-top:5px solid var(--purple);animation-delay:.7s}
+.fchip .arr{color:var(--terracotta-600)}
+.fc1{top:8%;left:-7%;border-top:5px solid var(--terracotta)}
+.fc2{bottom:12%;right:-5%;border-top:5px solid var(--forest);animation-delay:1.4s}
+.fc3{top:46%;right:-9%;border-top:5px solid var(--golden);animation-delay:.7s}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
 /* ── MARQUEE ─────────────────────────────────────────── */
-.marquee{background:var(--blue-900);padding:18px 0;overflow:hidden;transform:rotate(-1.1deg) scale(1.03);border-radius:6px;box-shadow:var(--shadow)}
+.marquee{background:var(--navy-900);padding:18px 0;overflow:hidden;transform:rotate(-1.1deg) scale(1.03);border-radius:6px;box-shadow:var(--shadow)}
 .mq-track{display:flex;gap:44px;width:max-content;animation:mq 36s linear infinite}
 .marquee:hover .mq-track{animation-play-state:paused}
 .mq-track span{display:flex;align-items:center;gap:44px;color:var(--cream);font-weight:600;font-size:.95rem;white-space:nowrap}
-.mq-track b{color:var(--orange)}
-.mq-track u{text-decoration:none;color:var(--green)}
+.mq-track b{color:var(--terracotta)}
+.mq-track u{text-decoration:none;color:var(--forest)}
 @keyframes mq{to{transform:translateX(-50%)}}
 
 /* ── ABOUT ─────────────────────────────────────────── */
 .about-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:64px;align-items:center}
 .about-art{position:relative}
 .about-art .frame{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(-1.2deg)}
-.about-art .stamp{position:absolute;bottom:-24px;right:-14px;background:var(--orange);color:#fff;border-radius:20px;padding:16px 22px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(2deg)}
+.about-art .stamp{position:absolute;bottom:-24px;right:-14px;background:var(--terracotta);color:#fff;border-radius:20px;padding:16px 22px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(2deg)}
 .about-art .stamp small{display:block;font-weight:500;opacity:.9}
 .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
 .pillar{border-radius:var(--r-lg);padding:26px 22px;color:#fff;transition:transform .3s}
@@ -133,7 +143,7 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .pillar h3{font-size:1.15rem;margin-bottom:8px}
 .pillar p{font-size:.9rem;opacity:.94}
 .pillar .pico{font-size:1.5rem;margin-bottom:12px;display:block}
-.pl-b{background:var(--blue)} .pl-o{background:var(--orange)} .pl-g{background:var(--green)}
+.pl-b{background:var(--navy)} .pl-o{background:var(--terracotta)} .pl-g{background:var(--forest)}
 
 /* ── SERVICES ────────────────────────────────────────── */
 .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
@@ -145,21 +155,21 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .svc p{font-size:.93rem;color:var(--ink-60);flex:1}
 .svc a{margin-top:18px;font-weight:700;font-size:.9rem;display:inline-flex;gap:6px;align-items:center;transition:gap .25s}
 .svc a:hover{gap:11px}
-.i-o{background:var(--orange)} .i-g{background:var(--green)} .i-b{background:var(--blue)} .i-p{background:var(--purple)}
-.svc:nth-child(1) a{color:var(--orange-600)} .svc:nth-child(2) a{color:var(--green-600)}
-.svc:nth-child(3) a{color:var(--blue)} .svc:nth-child(4) a{color:var(--purple-600)}
+.i-o{background:var(--terracotta)} .i-g{background:var(--forest)} .i-b{background:var(--navy)} .i-p{background:var(--golden)}
+.svc:nth-child(1) a{color:var(--terracotta-600)} .svc:nth-child(2) a{color:var(--forest)}
+.svc:nth-child(3) a{color:var(--navy)} .svc:nth-child(4) a{color:var(--golden-600)}
 
 /* ── LANGUAGES / PHRASEBOOK ──────────────────────────── */
-.lang-panel{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue) 52%,var(--purple) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,66px);color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.lang-panel{background:linear-gradient(135deg,var(--navy-900) 0%,var(--navy) 52%,var(--golden) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,66px);color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
 .lang-panel::before,.lang-panel::after{content:"";position:absolute;border-radius:50%;opacity:.16}
-.lang-panel::before{width:420px;height:420px;background:var(--orange);top:-160px;right:-120px}
-.lang-panel::after{width:340px;height:340px;background:var(--green);bottom:-150px;left:-110px}
+.lang-panel::before{width:420px;height:420px;background:var(--terracotta);top:-160px;right:-120px}
+.lang-panel::after{width:340px;height:340px;background:var(--forest);bottom:-150px;left:-110px}
 .lang-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px;position:relative;z-index:1}
 .lang-head .eyebrow{background:rgba(255,255,255,.14);color:#FFD9BC}
 .src-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1}
 .tab{padding:11px 20px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:.92rem;transition:background .25s,transform .25s}
 .tab:hover{background:rgba(255,255,255,.24);transform:translateY(-2px)}
-.tab.active{background:var(--orange);box-shadow:0 8px 20px rgba(242,118,46,.4)}
+.tab.active{background:var(--terracotta);box-shadow:0 8px 20px rgba(200,82,39,.4)}
 .phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;position:relative;z-index:1}
 .phrase-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);padding:30px;backdrop-filter:blur(6px)}
 .phrase-card h4{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75;margin-bottom:16px;font-family:var(--fb);font-weight:700}
@@ -168,7 +178,7 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .tgt-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .tchip{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-size:.85rem;font-weight:600;transition:background .25s,transform .2s}
 .tchip:hover{background:rgba(255,255,255,.26)}
-.tchip.active{background:var(--green);box-shadow:0 8px 18px rgba(87,177,74,.45)}
+.tchip.active{background:var(--forest);box-shadow:0 8px 18px rgba(29,59,42,.45)}
 .tgt-out{background:#fff;color:var(--ink);border-radius:var(--r-md);padding:22px 24px;min-height:96px;font-family:var(--fd);font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.4;box-shadow:var(--shadow)}
 .tgt-out.pop{animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
 @keyframes pop{from{transform:scale(.94);opacity:.3}to{transform:scale(1);opacity:1}}
@@ -183,23 +193,23 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .step h3{font-size:1.15rem;margin-bottom:8px}
 .step p{font-size:.92rem;color:var(--ink-60)}
 .step::after{content:"";position:absolute;right:-26px;bottom:-26px;width:90px;height:90px;border-radius:26px;opacity:.14}
-.st-o .num{color:var(--orange)} .st-o::after{background:var(--orange)}
-.st-g .num{color:var(--green-600)} .st-g::after{background:var(--green)}
-.st-b .num{color:var(--blue)} .st-b::after{background:var(--blue)}
-.st-p .num{color:var(--purple)} .st-p::after{background:var(--purple)}
+.st-o .num{color:var(--terracotta)} .st-o::after{background:var(--terracotta)}
+.st-g .num{color:var(--forest)} .st-g::after{background:var(--forest)}
+.st-b .num{color:var(--navy)} .st-b::after{background:var(--navy)}
+.st-p .num{color:var(--golden)} .st-p::after{background:var(--golden)}
 
 /* ── DEMOS ───────────────────────────────────────────── */
 .demo-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.edit-pill{background:var(--green-100);color:var(--green-600);border-radius:999px;padding:10px 18px;font-weight:700;font-size:.85rem}
+.edit-pill{background:var(--navy-100);color:var(--forest);border-radius:999px;padding:10px 18px;font-weight:700;font-size:.85rem}
 .demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:46px}
 .demo-card{background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .3s,box-shadow .3s;border:2px solid transparent;text-align:left}
-.demo-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--orange)}
+.demo-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--terracotta)}
 .demo-thumb{height:185px;position:relative;display:grid;place-items:center;overflow:hidden}
 .thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ac-orange{background:linear-gradient(135deg,var(--orange-600),#FFAE66)}
-.ac-green{background:linear-gradient(135deg,var(--green-600),#9ADF82)}
-.ac-purple{background:linear-gradient(135deg,var(--purple-600),#B394EC)}
-.ac-blue{background:linear-gradient(135deg,var(--blue),#5B85CF)}
+.ac-orange{background:linear-gradient(135deg,var(--terracotta-600),#E5A823)}
+.ac-green{background:linear-gradient(135deg,var(--forest),#E6D0AC)}
+.ac-purple{background:linear-gradient(135deg,var(--golden-600),#E5A823)}
+.ac-blue{background:linear-gradient(135deg,var(--navy),#1B325F)}
 .demo-thumb .glyph{position:absolute;font-size:5.4rem;opacity:.18;font-family:var(--fd);color:#fff;left:18px;bottom:-16px}
 .play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 12px 28px rgba(0,0,0,.25);transition:transform .3s;position:relative;z-index:2}
 .demo-card:hover .play{transform:scale(1.14)}
@@ -209,10 +219,10 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .demo-body{padding:24px}
 .demo-body h3{font-size:1.18rem;margin-bottom:8px}
 .demo-body p{font-size:.9rem;color:var(--ink-60)}
-.demo-open{margin-top:14px;font-weight:700;font-size:.88rem;color:var(--orange-600);display:inline-flex;gap:6px}
-.demo-add{border:2.5px dashed var(--green);border-radius:var(--r-lg);background:var(--green-100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:320px;color:var(--green-600);font-weight:700;font-size:1.02rem;transition:background .3s,transform .3s}
+.demo-open{margin-top:14px;font-weight:700;font-size:.88rem;color:var(--terracotta-600);display:inline-flex;gap:6px}
+.demo-add{border:2.5px dashed var(--forest);border-radius:var(--r-lg);background:var(--navy-100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:320px;color:var(--forest);font-weight:700;font-size:1.02rem;transition:background .3s,transform .3s}
 .demo-add:hover{background:#D2EFC8;transform:translateY(-6px)}
-.demo-add .plus{width:62px;height:62px;border-radius:20px;background:var(--green);color:#fff;font-size:1.9rem;display:grid;place-items:center;box-shadow:0 10px 24px rgba(87,177,74,.4)}
+.demo-add .plus{width:62px;height:62px;border-radius:20px;background:var(--forest);color:#fff;font-size:1.9rem;display:grid;place-items:center;box-shadow:0 10px 24px rgba(29,59,42,.4)}
 
 /* simulated in-browser video player */
 .sim-player{border-radius:var(--r-md);overflow:hidden;background:#10122B;box-shadow:var(--shadow)}
@@ -228,7 +238,7 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .sim-bar{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#10122B;color:#fff}
 .sim-re{color:#fff;font-size:1.05rem;font-weight:800}
 .sim-prog{flex:1;height:7px;border-radius:999px;background:rgba(255,255,255,.18);cursor:pointer}
-.sim-prog i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--orange),var(--green))}
+.sim-prog i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--terracotta),var(--forest))}
 .sim-time{font-size:.78rem;font-weight:600;opacity:.9}
 .ovl-list{position:absolute;top:9%;right:5%;display:flex;flex-direction:column;gap:2px;color:#111;text-align:left}
 .ovl-list b{font-family:var(--fd);font-size:clamp(.9rem,2.8vw,1.6rem)}
@@ -242,51 +252,51 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .cr{color:#C4392F}.cg{color:#57C08B}.cp{color:#B765E3}
 
 /* ── BENCH (upload / transcription) ──────────────────── */
-.bench{background:linear-gradient(120deg,var(--green-600) 0%,var(--blue) 58%,var(--purple) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,64px);color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
-.bench::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:var(--orange);opacity:.16;top:-150px;left:-130px}
+.bench{background:linear-gradient(120deg,var(--forest) 0%,var(--navy) 58%,var(--golden) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,64px);color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.bench::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:var(--terracotta);opacity:.16;top:-150px;left:-130px}
 .bench-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:52px;position:relative;z-index:1;align-items:start}
 .bench h2{color:#fff}
 .bench-points{margin:26px 0 0;display:flex;flex-direction:column;gap:14px}
 .bench-points li{list-style:none;display:flex;gap:12px;align-items:start;font-size:.97rem}
-.bench-points .tick{flex:0 0 26px;height:26px;border-radius:9px;background:var(--orange);display:grid;place-items:center;font-size:.8rem;font-weight:800;margin-top:2px}
+.bench-points .tick{flex:0 0 26px;height:26px;border-radius:9px;background:var(--terracotta);display:grid;place-items:center;font-size:.8rem;font-weight:800;margin-top:2px}
 .bench-card{background:#fff;border-radius:var(--r-lg);padding:30px;color:var(--ink);box-shadow:0 30px 70px rgba(0,0,0,.28)}
-.drop{border:2.5px dashed var(--purple);border-radius:var(--r-md);padding:34px 20px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s;background:var(--purple-100)}
-.drop:hover,.drop.drag{border-color:var(--orange);background:var(--orange-100)}
-.drop .up-ico{width:58px;height:58px;border-radius:18px;background:var(--purple);display:grid;place-items:center;margin:0 auto 14px}
+.drop{border:2.5px dashed var(--golden);border-radius:var(--r-md);padding:34px 20px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s;background:var(--golden-100)}
+.drop:hover,.drop.drag{border-color:var(--terracotta);background:var(--terracotta-100)}
+.drop .up-ico{width:58px;height:58px;border-radius:18px;background:var(--golden);display:grid;place-items:center;margin:0 auto 14px}
 .drop .up-ico svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .drop b{font-size:1.05rem}
 .drop small{display:block;color:var(--ink-60);margin-top:6px}
-.drop .browse{color:var(--orange-600);font-weight:700;text-decoration:underline}
+.drop .browse{color:var(--terracotta-600);font-weight:700;text-decoration:underline}
 .drop.shake{animation:shake .4s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-.file-chip{display:none;align-items:center;gap:12px;background:var(--green-100);border:1.5px solid var(--green);border-radius:var(--r-sm);padding:12px 16px;margin-top:14px;font-size:.9rem;font-weight:600}
+.file-chip{display:none;align-items:center;gap:12px;background:var(--navy-100);border:1.5px solid var(--forest);border-radius:var(--r-sm);padding:12px 16px;margin-top:14px;font-size:.9rem;font-weight:600}
 .file-chip.show{display:flex}
-.file-chip .fx{margin-left:auto;background:var(--green);color:#fff;width:26px;height:26px;border-radius:9px;font-weight:800}
+.file-chip .fx{margin-left:auto;background:var(--forest);color:#fff;width:26px;height:26px;border-radius:9px;font-weight:800}
 .bench-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
 .bench-row label{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);display:block;margin-bottom:6px}
 .bench-row select{width:100%;padding:13px 14px;border-radius:var(--r-sm);border:1.5px solid var(--ink-08);background:#fff;appearance:auto}
 .wave{display:flex;align-items:flex-end;gap:3px;height:46px;margin-top:20px}
-.wave i{flex:1;border-radius:3px;background:linear-gradient(180deg,var(--orange),var(--purple));height:18%;transition:height .4s}
+.wave i{flex:1;border-radius:3px;background:linear-gradient(180deg,var(--terracotta),var(--golden));height:18%;transition:height .4s}
 .wave.live i{animation:wv .8s ease-in-out infinite alternate}
 @keyframes wv{from{height:12%}to{height:100%}}
 .prog-wrap{margin-top:14px;display:none}
 .prog-wrap.show{display:block}
-.prog{height:10px;border-radius:999px;background:var(--purple-100);overflow:hidden}
-.prog-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--orange),var(--green),var(--purple));transition:width .5s ease}
-#stepLabel{font-size:.86rem;font-weight:600;color:var(--purple-600);margin-top:8px;display:block}
+.prog{height:10px;border-radius:999px;background:var(--golden-100);overflow:hidden}
+.prog-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--terracotta),var(--forest),var(--golden));transition:width .5s ease}
+#stepLabel{font-size:.86rem;font-weight:600;color:var(--golden-600);margin-top:8px;display:block}
 .bench-actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center}
 .hint{font-size:.85rem;color:#D14343;font-weight:600;display:none;margin-top:10px}
 .hint.show{display:block}
 .results{display:none;margin-top:22px}
 .results.show{display:block;animation:pop .5s cubic-bezier(.2,1.2,.4,1)}
 .res{border-radius:var(--r-md);padding:18px 20px;margin-top:14px;font-size:.97rem;line-height:1.65}
-.res-src{background:var(--orange-100);border-left:6px solid var(--orange)}
-.res-tgt{background:var(--green-100);border-left:6px solid var(--green)}
+.res-src{background:var(--terracotta-100);border-left:6px solid var(--terracotta)}
+.res-tgt{background:var(--navy-100);border-left:6px solid var(--forest)}
 .res h5{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;font-family:var(--fb)}
-.res-src h5{color:var(--orange-600)} .res-tgt h5{color:var(--green-600)}
+.res-src h5{color:var(--terracotta-600)} .res-tgt h5{color:var(--forest)}
 .res-meta{font-size:.8rem;color:var(--ink-60);margin-top:12px}
 .res-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.cursor{display:inline-block;width:2px;height:1em;background:var(--orange-600);vertical-align:-2px;animation:blink .8s steps(1) infinite}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--terracotta-600);vertical-align:-2px;animation:blink .8s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 
 /* ── EDUCATION ───────────────────────────────────────── */
@@ -299,63 +309,63 @@ h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
 .edu-item p{font-size:.9rem;color:var(--ink-60)}
 .edu-art .frame{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(1.4deg)}
 .edu-art{position:relative}
-.edu-art .stamp{position:absolute;top:-22px;left:-16px;background:var(--purple);color:#fff;border-radius:18px;padding:14px 20px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(-2deg)}
+.edu-art .stamp{position:absolute;top:-22px;left:-16px;background:var(--golden);color:#fff;border-radius:18px;padding:14px 20px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(-2deg)}
 
 /* ── IMPACT ──────────────────────────────────────────── */
-.impact{background:var(--orange);border-radius:var(--r-xl);padding:clamp(36px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;color:#fff;box-shadow:0 24px 60px rgba(242,118,46,.35);position:relative;overflow:hidden}
-.impact::before{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:60px;background:var(--purple);opacity:.28;transform:rotate(18deg)}
-.impact::after{content:"";position:absolute;left:-70px;bottom:-100px;width:240px;height:240px;border-radius:60px;background:var(--green);opacity:.3;transform:rotate(-14deg)}
+.impact{background:var(--terracotta);border-radius:var(--r-xl);padding:clamp(36px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;color:#fff;box-shadow:0 24px 60px rgba(200,82,39,.35);position:relative;overflow:hidden}
+.impact::before{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:60px;background:var(--golden);opacity:.28;transform:rotate(18deg)}
+.impact::after{content:"";position:absolute;left:-70px;bottom:-100px;width:240px;height:240px;border-radius:60px;background:var(--forest);opacity:.3;transform:rotate(-14deg)}
 .imp{position:relative;z-index:1;text-align:center}
 .imp .count{font-family:var(--fd);font-weight:700;font-size:clamp(2.2rem,4vw,3.3rem);display:block;line-height:1.1}
 .imp small{font-weight:600;opacity:.95;font-size:.92rem}
 
 /* ── CTA ─────────────────────────────────────────────── */
-.cta-panel{background:linear-gradient(120deg,var(--purple-600),var(--blue) 70%);border-radius:var(--r-xl);padding:clamp(44px,6vw,80px);text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+.cta-panel{background:linear-gradient(120deg,var(--golden-600),var(--navy) 70%);border-radius:var(--r-xl);padding:clamp(44px,6vw,80px);text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
 .cta-panel::before,.cta-panel::after{content:"";position:absolute;border-radius:50%}
-.cta-panel::before{width:300px;height:300px;background:var(--orange);opacity:.22;top:-130px;left:-90px}
-.cta-panel::after{width:260px;height:260px;background:var(--green);opacity:.22;bottom:-120px;right:-70px}
+.cta-panel::before{width:300px;height:300px;background:var(--terracotta);opacity:.22;top:-130px;left:-90px}
+.cta-panel::after{width:260px;height:260px;background:var(--forest);opacity:.22;bottom:-120px;right:-70px}
 .cta-panel h2{color:#fff;font-size:clamp(2rem,4vw,3.2rem);max-width:22ch;margin:0 auto 16px;position:relative;z-index:1}
 .cta-panel p{opacity:.92;max-width:52ch;margin:0 auto 34px;position:relative;z-index:1}
 .cta-panel .hero-ctas{justify-content:center;position:relative;z-index:1}
 
 /* ── FOOTER ──────────────────────────────────────────── */
-footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) var(--r-xl) 0 0;margin-top:96px;padding:64px 0 30px}
+footer{background:var(--navy-900);color:var(--cream);border-radius:var(--r-xl) var(--r-xl) 0 0;margin-top:96px;padding:64px 0 30px}
 .nl{display:flex;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);padding:22px;flex-wrap:wrap;align-items:center;margin-bottom:52px}
 .nl h3{font-size:1.25rem;margin-right:auto}
 .nl input{flex:1;min-width:220px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r-sm);padding:13px 16px;color:#fff}
 .nl input::placeholder{color:rgba(255,255,255,.5)}
-.nl .ok{font-weight:700;color:#9ADF82}
+.nl .ok{font-weight:700;color:#E6D0AC}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px;margin-bottom:44px}
 .foot-grid h4{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:#FFC79A;margin-bottom:18px}
 .foot-grid a{display:block;padding:5px 0;opacity:.85;font-size:.94rem;transition:opacity .2s,transform .2s}
-.foot-grid a:hover{opacity:1;transform:translateX(4px);color:#9ADF82}
+.foot-grid a:hover{opacity:1;transform:translateX(4px);color:#E6D0AC}
 .foot-brand p{opacity:.8;font-size:.93rem;margin-top:14px;max-width:34ch}
 .foot-brand .logo{color:#fff}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.14);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;opacity:.78}
 .legal-link{color:inherit;font:inherit;font-size:inherit;padding:0;text-decoration:underline;text-underline-offset:3px;transition:color .2s}
-.legal-link:hover{color:#9ADF82}
+.legal-link:hover{color:#E6D0AC}
 
 /* ── MODALS ──────────────────────────────────────────── */
 .modal-backdrop{position:fixed;inset:0;background:rgba(18,20,40,.55);backdrop-filter:blur(6px);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-backdrop.open{display:flex}
 .modal-card{background:#fff;border-radius:var(--r-lg);max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:36px;position:relative;box-shadow:var(--shadow-lg);animation:pop .35s cubic-bezier(.2,1.2,.4,1)}
 .modal-card.legal{max-width:840px}
-.modal-x{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:14px;background:var(--orange-100);color:var(--orange-600);font-size:1.1rem;font-weight:800;transition:background .2s;z-index:2}
-.modal-x:hover{background:var(--orange);color:#fff}
+.modal-x{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:14px;background:var(--terracotta-100);color:var(--terracotta-600);font-size:1.1rem;font-weight:800;transition:background .2s;z-index:2}
+.modal-x:hover{background:var(--terracotta);color:#fff}
 .modal-card h3{font-size:1.6rem;margin:8px 0 6px}
 .modal-card .mdesc{color:var(--ink-60);margin-bottom:20px}
 .mtagrow{display:flex;gap:10px;align-items:center}
-.mtag{background:var(--purple-100);color:var(--purple-600);padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.mtag{background:var(--golden-100);color:var(--golden-600);padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
 .mdur{font-size:.85rem;color:var(--ink-60);font-weight:600}
 .media-area{margin-top:8px}
 .media-area video,.media-area iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-md);background:#000}
-.ph{border:2.5px dashed var(--purple);background:var(--purple-100);border-radius:var(--r-md);padding:34px 24px;text-align:center}
-.ph .ph-ico{width:60px;height:60px;border-radius:50%;background:var(--purple);color:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:1.2rem}
+.ph{border:2.5px dashed var(--golden);background:var(--golden-100);border-radius:var(--r-md);padding:34px 24px;text-align:center}
+.ph .ph-ico{width:60px;height:60px;border-radius:50%;background:var(--golden);color:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:1.2rem}
 .ph p{font-size:.92rem;color:var(--ink-60);max-width:46ch;margin:0 auto 18px}
 .ph-row{display:flex;gap:10px;max-width:480px;margin:0 auto}
 .ph-row input{flex:1;padding:12px 14px;border-radius:var(--r-sm);border:1.5px solid var(--ink-08)}
 .modal-note{margin-top:18px;font-size:.84rem;color:var(--ink-60);background:var(--cream);border-radius:var(--r-sm);padding:12px 16px}
-.modal-note b{color:var(--green-600)}
+.modal-note b{color:var(--forest)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 .form-grid .full{grid-column:1/-1}
 .form-grid label{font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);display:block;margin-bottom:6px}
@@ -363,8 +373,8 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 .form-err{color:#D14343;font-size:.85rem;font-weight:600;margin-top:10px;display:none}
 
 /* legal content */
-.legal-updated{display:inline-block;background:var(--green-100);color:var(--green-600);font-size:.8rem;font-weight:700;padding:7px 14px;border-radius:999px;margin-bottom:6px}
-.legal-content h4{font-size:1.02rem;margin:24px 0 6px;color:var(--blue)}
+.legal-updated{display:inline-block;background:var(--navy-100);color:var(--forest);font-size:.8rem;font-weight:700;padding:7px 14px;border-radius:999px;margin-bottom:6px}
+.legal-content h4{font-size:1.02rem;margin:24px 0 6px;color:var(--navy)}
 .legal-content p,.legal-content li{font-size:.93rem;color:var(--ink-60);line-height:1.7}
 .legal-content ul{padding-left:22px;margin:8px 0}
 .legal-content li{margin-bottom:4px}
@@ -396,7 +406,7 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 <!-- ══════════ NAV ══════════ -->
 <div class="nav-wrap">
   <nav class="nav" aria-label="Main navigation">
-    <a class="logo" href="#home" aria-label="Linguifrica home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#F2762E"/><circle cx="65" cy="35" r="26" fill="#57B14A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B3A6E" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#6B4AA8" opacity=".92"/></svg><span class="lt">Lingui<b>frica</b></span></a>
+    <a class="logo" href="#home" aria-label="babalang home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#C85227"/><circle cx="65" cy="35" r="26" fill="#1D3B2A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B325F" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#E5A823" opacity=".92"/></svg><span class="lt">Baba<b>lang</b></span></a>
     <div class="nav-links">
       <a href="#about">About</a><a href="#services">Services</a><a href="#languages">Languages</a>
       <a href="#demos">Demos</a><a href="#transcribe">Transcribe</a><a href="#education">Education</a>
@@ -417,16 +427,16 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
   <div class="wrap hero-grid">
     <div class="reveal in">
       <span class="eyebrow ey-o"><span class="quad"><i></i><i></i><i></i><i></i></span> Classical speech · African languages</span>
-      <h1>Classical voices, <em>alive<svg viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 40 6, 70 22, 108 12 S 180 6, 216 14" fill="none" stroke="#57B14A" stroke-width="7" stroke-linecap="round"/></svg></em> in African tongues.</h1>
-      <p class="sub">Linguifrica turns speech in Latin, Ancient Greek, Sanskrit, Classical Arabic and more into natural text and audio across 30+ African languages — unlocking courts, clinics, classrooms and archives that translation never reached.</p>
+      <h1>Classical voices, <em>alive<svg viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 40 6, 70 22, 108 12 S 180 6, 216 14" fill="none" stroke="#1D3B2A" stroke-width="7" stroke-linecap="round"/></svg></em> in African tongues.</h1>
+      <p class="sub">babalang turns speech in Latin, Ancient Greek, Sanskrit, Classical Arabic and more into natural text and audio across 30+ African languages — unlocking courts, clinics, classrooms and archives that translation never reached.</p>
       <div class="hero-ctas">
         <a class="btn btn-o" href="#transcribe">🎙 Upload audio for transcription</a>
         <a class="btn btn-ghost" href="#demos">▶&nbsp; Watch the demos</a>
       </div>
       <div class="hero-badges">
-        <span class="hbadge"><i style="background:var(--orange)"></i>12 classical sources</span>
-        <span class="hbadge"><i style="background:var(--green)"></i>34 African languages</span>
-        <span class="hbadge"><i style="background:var(--purple)"></i>96% transcription accuracy</span>
+        <span class="hbadge"><i style="background:var(--terracotta)"></i>12 classical sources</span>
+        <span class="hbadge"><i style="background:var(--forest)"></i>34 African languages</span>
+        <span class="hbadge"><i style="background:var(--golden)"></i>96% transcription accuracy</span>
       </div>
     </div>
     <div class="hero-art reveal in">
@@ -456,7 +466,7 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
     <div class="reveal">
       <span class="eyebrow ey-b"><span class="quad"><i></i><i></i><i></i><i></i></span> Why we exist</span>
       <h2>Bridges from the classics to the community.</h2>
-      <p class="sub" style="margin-top:18px">Thousands of hours of classical speech — sermons, oral histories, legal maxims, epic verse — sit locked in archives, courts and classrooms across Africa, because nobody has bridged them into living languages. Linguifrica builds that bridge: scholar-trained speech recognition for classical tongues, paired with natural African-language output. We go first to the communities that never had a translation option — and we hand the tools to schools.</p>
+      <p class="sub" style="margin-top:18px">Thousands of hours of classical speech — sermons, oral histories, legal maxims, epic verse — sit locked in archives, courts and classrooms across Africa, because nobody has bridged them into living languages. babalang builds that bridge: scholar-trained speech recognition for classical tongues, paired with natural African-language output. We go first to the communities that never had a translation option — and we hand the tools to schools.</p>
       <div class="pillars">
         <div class="pillar pl-b"><span class="pico">🏛</span><h3>Access</h3><p>Interpretation bridges for courts, clinics, museums and civic services where translation was never an option.</p></div>
         <div class="pillar pl-o"><span class="pico">📜</span><h3>Preservation</h3><p>Archival speech rescued, transcribed and returned to communities in the languages they live in.</p></div>
@@ -645,7 +655,7 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
       <p>Whether it's one archive reel or a national curriculum, we'll get the words where they need to go — in the language people live in.</p>
       <div class="hero-ctas">
         <a class="btn btn-o" href="#transcribe">Start transcribing</a>
-        <a class="btn btn-g" href="mailto:partners@linguifrica.org">Partner with us</a>
+        <a class="btn btn-g" href="mailto:partners@babalang.org">Partner with us</a>
       </div>
     </div>
   </div>
@@ -662,16 +672,16 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
     </form>
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="logo" href="#home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#F2762E"/><circle cx="65" cy="35" r="26" fill="#57B14A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B3A6E" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#6B4AA8" opacity=".92"/></svg><span class="lt">Lingui<b style="color:var(--orange)">frica</b></span></a>
+        <a class="logo" href="#home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#C85227"/><circle cx="65" cy="35" r="26" fill="#1D3B2A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B325F" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#E5A823" opacity=".92"/></svg><span class="lt">Baba<b style="color:var(--terracotta)">lang</b></span></a>
         <p>Classical speech, African futures. A social enterprise at the intersection of language technology, heritage and access.</p>
       </div>
       <div><h4>Explore</h4><a href="#about">About</a><a href="#services">Services</a><a href="#languages">Languages</a><a href="#demos">Demos</a></div>
       <div><h4>Services</h4><a href="#transcribe">Speech-to-Text</a><a href="#languages">Living Translation</a><a href="#about">Access Services</a><a href="#education">Education</a></div>
-      <div><h4>Contact</h4><a href="mailto:hello@linguifrica.org">hello@linguifrica.org</a><a href="tel:+254700000000">+254 700 000 000</a><a href="#home">Nairobi · Accra · Cape Town</a></div>
+      <div><h4>Contact</h4><a href="mailto:hello@babalang.org">hello@babalang.org</a><a href="tel:+254700000000">+254 700 000 000</a><a href="#home">Nairobi · Accra · Cape Town</a></div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year"></span> Linguifrica — classical speech, African futures.</span>
-      <span>Made with <span style="color:var(--orange)">♥</span> for languages · <button class="legal-link" data-legal="privacyModal">Privacy Policy</button> · <button class="legal-link" data-legal="termsModal">Terms of Service</button></span>
+      <span>© <span id="year"></span> babalang — classical speech, African futures.</span>
+      <span>Made with <span style="color:var(--terracotta)">♥</span> for languages · <button class="legal-link" data-legal="privacyModal">Privacy Policy</button> · <button class="legal-link" data-legal="termsModal">Terms of Service</button></span>
     </div>
   </div>
 </footer>
@@ -714,10 +724,10 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
     <button class="modal-x" data-close aria-label="Close">✕</button>
     <span class="legal-updated">Last updated: 18 August 2026</span>
     <h3>Privacy Policy</h3>
-    <p class="mdesc">How Linguifrica collects, uses and protects your information when you use our speech-to-text, translation and education services.</p>
+    <p class="mdesc">How babalang collects, uses and protects your information when you use our speech-to-text, translation and education services.</p>
     <div class="legal-content">
       <h4>1. Who we are</h4>
-      <p>Linguifrica (“we”, “us”, “our”) provides transcription of speech in classical languages and translation into African languages, together with access services and education initiatives. Our offices are in Nairobi, Accra and Cape Town. For any privacy question, contact <b>privacy@linguifrica.org</b>.</p>
+      <p>babalang (“we”, “us”, “our”) provides transcription of speech in classical languages and translation into African languages, together with access services and education initiatives. Our offices are in Nairobi, Accra and Cape Town. For any privacy question, contact <b>privacy@babalang.org</b>.</p>
       <h4>2. Information we collect</h4>
       <ul>
         <li><b>Audio you upload.</b> Recordings you submit through our transcription bench or deliver to us as a partner, together with the language pairs you select and the transcripts and translations we generate from them.</li>
@@ -748,7 +758,7 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
       <h4>7. Security</h4>
       <p>We use encryption in transit (TLS) and at rest, access controls, audit logging and least-privilege access for staff. No method of transmission is 100% secure, but we take reasonable and appropriate measures for the sensitivity of linguistic and heritage data.</p>
       <h4>8. Your rights</h4>
-      <p>Depending on your jurisdiction (including the Kenyan Data Protection Act, the South African POPIA and the GDPR), you may have the right to <b>access, correct, export, restrict or delete</b> your personal data, and to object to certain processing. Submit requests to <b>privacy@linguifrica.org</b>; we respond within 30 days.</p>
+      <p>Depending on your jurisdiction (including the Kenyan Data Protection Act, the South African POPIA and the GDPR), you may have the right to <b>access, correct, export, restrict or delete</b> your personal data, and to object to certain processing. Submit requests to <b>privacy@babalang.org</b>; we respond within 30 days.</p>
       <h4>9. Cookies &amp; local storage</h4>
       <p>We use strictly necessary storage to keep the site working (for example, remembering demos you have added in your browser). We do not use third-party advertising trackers.</p>
       <h4>10. Children's privacy</h4>
@@ -767,12 +777,12 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
     <button class="modal-x" data-close aria-label="Close">✕</button>
     <span class="legal-updated">Last updated: 18 August 2026</span>
     <h3>Terms of Service</h3>
-    <p class="mdesc">The terms under which Linguifrica provides speech-to-text, translation, access and education services.</p>
+    <p class="mdesc">The terms under which babalang provides speech-to-text, translation, access and education services.</p>
     <div class="legal-content">
       <h4>1. Agreement</h4>
-      <p>By accessing linguifrica.org or using any Linguifrica service, you agree to these Terms of Service and to our Privacy Policy. If you use the service on behalf of an organisation, you confirm you are authorised to bind it.</p>
+      <p>By accessing babalang.org or using any babalang service, you agree to these Terms of Service and to our Privacy Policy. If you use the service on behalf of an organisation, you confirm you are authorised to bind it.</p>
       <h4>2. The service</h4>
-      <p>Linguifrica provides (a) speech-to-text transcription of classical-language audio; (b) translation of transcripts into African languages, in text and audio form; (c) interpretation and access support for institutions; and (d) free education programmes, classroom kits and open corpora. Features and supported languages may change as the service evolves.</p>
+      <p>babalang provides (a) speech-to-text transcription of classical-language audio; (b) translation of transcripts into African languages, in text and audio form; (c) interpretation and access support for institutions; and (d) free education programmes, classroom kits and open corpora. Features and supported languages may change as the service evolves.</p>
       <h4>3. Demo sandbox disclaimer</h4>
       <p>The interactive phrasebook and the on-site transcription bench are <b>demonstrations running on sample corpora</b>. Outputs shown there are illustrative and must not be relied upon for legal, medical, academic or other professional purposes. Production projects are delivered through our full pipeline with scholarly review.</p>
       <h4>4. Eligibility &amp; accounts</h4>
@@ -782,7 +792,7 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
       <h4>6. Acceptable use</h4>
       <p>You agree not to use the service to: violate any law or third-party right; upload content you do not have rights to; attempt to extract, copy or reverse-engineer our models or software; interfere with the operation of the service; or circumvent usage limits. We may suspend access where these rules are breached.</p>
       <h4>7. Intellectual property</h4>
-      <p>The Linguifrica name, logo, website, software, models and documentation are owned by us or our licensors and may not be copied or reused without written permission, except for education materials we explicitly release under open licences. Outputs generated from your content belong to you.</p>
+      <p>The babalang name, logo, website, software, models and documentation are owned by us or our licensors and may not be copied or reused without written permission, except for education materials we explicitly release under open licences. Outputs generated from your content belong to you.</p>
       <h4>8. Accuracy &amp; scholarly review</h4>
       <p>Classical languages are contested and context-dependent. While our work is reviewed by scholars and native-speaker linguists, transcription and translation are provided <b>“as is”</b> and may contain errors. For critical use — legal proceedings, publication, religious practice — request our certified review service.</p>
       <h4>9. Education programmes</h4>
@@ -794,9 +804,9 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
       <h4>12. Termination</h4>
       <p>You may stop using the service and request deletion of your data at any time. We may suspend or terminate access for breach of these Terms, with notice where practicable. Sections concerning ownership, liability and disputes survive termination.</p>
       <h4>13. Disclaimer of warranties &amp; limitation of liability</h4>
-      <p>To the maximum extent permitted by law, the service is provided without warranties of any kind, express or implied. To the extent permitted by law, Linguifrica's aggregate liability arising out of the service shall not exceed the fees you paid to us in the twelve months preceding the claim. Nothing in these Terms excludes liability that cannot be excluded by law.</p>
+      <p>To the maximum extent permitted by law, the service is provided without warranties of any kind, express or implied. To the extent permitted by law, babalang's aggregate liability arising out of the service shall not exceed the fees you paid to us in the twelve months preceding the claim. Nothing in these Terms excludes liability that cannot be excluded by law.</p>
       <h4>14. Governing law &amp; disputes</h4>
-      <p>These Terms are governed by the laws of the <b>Republic of Kenya</b>. Disputes shall first be raised in good faith via <b>legal@linguifrica.org</b>; if unresolved within 30 days, they are subject to the exclusive jurisdiction of the courts of Nairobi, Kenya, unless a mandatory consumer law of your country provides otherwise.</p>
+      <p>These Terms are governed by the laws of the <b>Republic of Kenya</b>. Disputes shall first be raised in good faith via <b>legal@babalang.org</b>; if unresolved within 30 days, they are subject to the exclusive jurisdiction of the courts of Nairobi, Kenya, unless a mandatory consumer law of your country provides otherwise.</p>
       <h4>15. Changes to these Terms</h4>
       <p>We may revise these Terms from time to time. Continued use of the service after changes take effect constitutes acceptance of the updated Terms. The “last updated” date above reflects the current version.</p>
     </div>
@@ -903,7 +913,7 @@ function renderDemos(){
       '<span class="demo-dur">'+(d.dur||'—')+'</span></div>'+
       '<div class="demo-body"><h3>'+d.title+'</h3><p>'+d.desc+'</p><span class="demo-open">Open demo →</span></div></button>';
   }).join('');
-  html+='<button class="demo-add" id="addDemoBtn"><span class="plus">＋</span> Add your demo<br><small style="font-weight:500;color:var(--green-600)">easily editable — saved in this browser</small></button>';
+  html+='<button class="demo-add" id="addDemoBtn"><span class="plus">＋</span> Add your demo<br><small style="font-weight:500;color:var(--forest)">easily editable — saved in this browser</small></button>';
   grid.innerHTML=html;
 }
 renderDemos();
@@ -1009,7 +1019,7 @@ document.getElementById('addForm').addEventListener('submit',function(e){
   var t=document.getElementById('adTitle').value.trim();
   var err=document.getElementById('formErr');
   if(!t){err.style.display='block';return;} err.style.display='none';
-  custom.push({tag:document.getElementById('adTag').value,dur:document.getElementById('adDur').value.trim()||'new',accent:ACCENTS[(DEFAULT_DEMOS.length+custom.length)%4],title:t,desc:document.getElementById('adDesc').value.trim()||'A brand-new Linguifrica presentation.',media:document.getElementById('adMedia').value.trim()});
+  custom.push({tag:document.getElementById('adTag').value,dur:document.getElementById('adDur').value.trim()||'new',accent:ACCENTS[(DEFAULT_DEMOS.length+custom.length)%4],title:t,desc:document.getElementById('adDesc').value.trim()||'A brand-new babalang presentation.',media:document.getElementById('adMedia').value.trim()});
   try{localStorage.setItem('lf_custom_demos',JSON.stringify(custom));}catch(e){}
   renderDemos(); closeModal(addModal); e.target.reset();
   openDemo(allDemos().length-1);
@@ -1096,8 +1106,8 @@ function finish(){
 document.getElementById('resetBtn').addEventListener('click',function(){results.classList.remove('show');});
 document.getElementById('dlBtn').addEventListener('click',function(){
   if(!window.lastRun)return; var r=window.lastRun;
-  var body='LINGUIFRICA TRANSCRIPT (demo)\n==============================\nSource ('+r.src+'):\n'+r.srcText+'\n\nTranslation ('+r.tgtName+'):\n'+r.tgtText+'\n\n— linguifrica.org · classical speech, African futures\n';
-  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/plain'}));a.download='linguifrica_transcript.txt';a.click();URL.revokeObjectURL(a.href);
+  var body='babalang TRANSCRIPT (demo)\n==============================\nSource ('+r.src+'):\n'+r.srcText+'\n\nTranslation ('+r.tgtName+'):\n'+r.tgtText+'\n\n— babalang.org · classical speech, African futures\n';
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/plain'}));a.download='babalang_transcript.txt';a.click();URL.revokeObjectURL(a.href);
 });
 document.getElementById('copyBtn').addEventListener('click',function(){
   if(!window.lastRun)return; var t=window.lastRun.tgtText, b=document.getElementById('copyBtn');
