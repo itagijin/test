@@ -1,393 +1,304 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>babalang — Classical Languages, African Voices</title>
 <meta name="description" content="babalang transcribes and translates speech from classical languages into African languages — speech-to-text, access services and education programmes.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='35' cy='35' r='26' fill='%23F2762E'/><circle cx='65' cy='35' r='26' fill='%2357B14A' opacity='.9'/><circle cx='35' cy='65' r='26' fill='%231B3A6E' opacity='.9'/><circle cx='65' cy='65' r='26' fill='%236B4AA8' opacity='.9'/></svg>">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/700.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5/600-italic.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5/400.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5/500.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5/700.css">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'&gt;&lt;rect width='100' height='100' fill='%2314213D'/&gt;&lt;text x='50' y='68' font-family='Georgia' font-size='60' fill='%23FDFBF7' text-anchor='middle'&gt;B&lt;/text&gt;&lt;/svg&gt;">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap">
 <style>
 /* ════════════════════════════════════════════════════════════
-   babalang · palette: desert orange / grass green / dark blue / mid purple — always together, ~33% each
+   babalang · De-vibecoded: flat, sharp, single accent, editorial
    ════════════════════════════════════════════════════════════ */
 :root{
-  --orange:#F2762E; --orange-600:#DE5A0F; --orange-100:#FFE7D4;
-  --green:#57B14A;  --green-600:#3E8E34;  --green-100:#E2F4DC;
-  --blue:#1B3A6E;   --blue-900:#122A52;   --blue-100:#DCE6F7;
-  --purple:#6B4AA8; --purple-600:#57399B; --purple-100:#EAE2F8;
-  --cream:#FFF7EC;  --paper:#FFFFFF;
-  --ink:#1D2136;    --ink-60:rgba(29,33,54,.62); --ink-08:rgba(29,33,54,.08);
-  --r-sm:14px; --r-md:22px; --r-lg:30px; --r-xl:44px;
-  --shadow:0 10px 30px rgba(27,58,110,.10);
-  --shadow-lg:0 26px 60px rgba(27,58,110,.18);
-  --fd:'Fraunces',Georgia,serif; --fb:'Space Grotesk',system-ui,sans-serif;
+  --bg: #FDFBF7;       /* Warm off-white background */
+  --text: #1A1A1A;     /* High-contrast text */
+  --accent: #14213D;   /* Single deep-navy accent */
+  --border: #E5E2DC;   /* Subtle warm border */
+  --muted: #6B6B6B;
+  --r-sm: 2px; 
+  --r-md: 4px; 
+  --r-lg: 6px;
+  --fd: 'Newsreader', Georgia, serif; 
+  --fb: 'Plus Jakarta Sans', system-ui, sans-serif;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--fb);background:var(--cream);color:var(--ink);overflow-x:hidden;line-height:1.6}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;font-weight:400}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
-input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
+button{font-family:inherit;cursor:pointer;border:1px solid var(--accent);background:transparent;color:var(--accent);transition:background .2s,color .2s}
+input,select,textarea{font-family:inherit;font-size:1rem;color:var(--text);background:transparent;border:1px solid var(--border)}
 section[id]{scroll-margin-top:96px}
-::selection{background:var(--orange);color:#fff}
-:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:8px}
+::selection{background:var(--accent);color:var(--bg)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-.sec{padding:96px 0}
-h1,h2,h3{font-family:var(--fd);letter-spacing:-.015em;line-height:1.08}
-h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700}
-.sub{color:var(--ink-60);font-size:1.06rem;max-width:62ch}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.sec{padding:120px 0}
+h1,h2,h3{font-family:var(--fd);letter-spacing:-.02em;line-height:1.1;font-weight:600}
+h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+.sub{color:var(--muted);font-size:1.05rem;max-width:60ch;line-height:1.7}
 
-.quad{display:inline-flex;gap:5px;align-items:center}
-.quad i{width:9px;height:9px;border-radius:50%}
-.quad i:nth-child(1){background:var(--orange)}
-.quad i:nth-child(2){background:var(--green)}
-.quad i:nth-child(3){background:var(--blue)}
-.quad i:nth-child(4){background:var(--purple)}
+/* Typography accents instead of rainbow */
+.eyebrow{display:inline-flex;font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:4px}
 
-.eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:.78rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:999px;margin-bottom:20px}
-.ey-o{background:var(--orange-100);color:var(--orange-600)}
-.ey-g{background:var(--green-100);color:var(--green-600)}
-.ey-b{background:var(--blue-100);color:var(--blue)}
-.ey-p{background:var(--purple-100);color:var(--purple-600)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.95rem;padding:12px 24px;border-radius:var(--r-md);border:1px solid var(--accent);color:var(--accent);background:transparent;letter-spacing:.01em}
+.btn:hover{background:var(--accent);color:var(--bg)}
+.btn-primary{background:var(--accent);color:var(--bg);border:1px solid var(--accent)}
+.btn-primary:hover{background:transparent;color:var(--accent)}
+.btn-sm{padding:8px 16px;font-size:.85rem}
 
-.btn{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:.98rem;padding:15px 26px;border-radius:var(--r-sm);transition:transform .25s,box-shadow .25s,background .25s;letter-spacing:.01em}
-.btn:active{transform:scale(.97)}
-.btn-o{background:var(--orange);color:#fff;box-shadow:0 10px 24px rgba(242,118,46,.35)}
-.btn-o:hover{background:var(--orange-600);transform:translateY(-3px)}
-.btn-g{background:var(--green);color:#fff;box-shadow:0 10px 24px rgba(87,177,74,.35)}
-.btn-g:hover{background:var(--green-600);transform:translateY(-3px)}
-.btn-ghost{background:#fff;color:var(--blue);border:2px solid var(--blue-100)}
-.btn-ghost:hover{border-color:var(--green);color:var(--green-600);transform:translateY(-3px)}
-.btn-sm{padding:10px 18px;font-size:.9rem}
-
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
 
 /* ── NAV ─────────────────────────────────────────────── */
-.nav-wrap{position:fixed;top:14px;left:0;right:0;z-index:60;padding:0 18px}
-.nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:16px;background:rgba(255,250,241,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--ink-08);border-radius:999px;padding:9px 10px 9px 20px;box-shadow:var(--shadow)}
-.logo{display:flex;align-items:center;gap:11px;font-family:var(--fd);font-weight:700;font-size:1.28rem}
-.logo .lt{white-space:nowrap;letter-spacing:0}
-.logo .lt b{color:var(--orange-600);margin:0;padding:0}
-.nav-links{display:flex;gap:2px;margin-left:auto}
-.nav-links a{padding:9px 14px;border-radius:999px;font-weight:500;font-size:.93rem;transition:background .25s,color .25s}
-.nav-links a:hover{background:var(--orange-100);color:var(--orange-600)}
-.burger{display:none;margin-left:auto;width:46px;height:46px;border-radius:14px;background:var(--blue);color:#fff;font-size:1.2rem;place-items:center}
-.mobile-menu{position:fixed;top:80px;left:16px;right:16px;z-index:59;background:#fff;border-radius:var(--r-lg);box-shadow:var(--shadow-lg);padding:16px;display:none;flex-direction:column;gap:4px}
+.nav-wrap{position:fixed;top:0;left:0;right:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--border)}
+.nav{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:24px;padding:16px 24px}
+.logo{display:flex;align-items:center;gap:8px;font-family:var(--fd);font-weight:600;font-size:1.3rem;color:var(--text)}
+.logo b{font-weight:600}
+.nav-links{display:flex;gap:24px;margin-left:auto}
+.nav-links a{padding:4px 0;font-weight:500;font-size:.95rem;border-bottom:1px solid transparent}
+.nav-links a:hover{border-color:var(--accent)}
+.burger{display:none;border:1px solid var(--border);padding:8px 12px;color:var(--text)}
+.mobile-menu{position:fixed;top:64px;left:0;right:0;z-index:59;background:var(--bg);border-bottom:1px solid var(--border);padding:16px 24px;display:none;flex-direction:column;gap:12px}
 .mobile-menu.open{display:flex}
-.mobile-menu a{padding:13px 18px;border-radius:var(--r-sm);font-weight:600}
-.mobile-menu a:hover{background:var(--green-100);color:var(--green-600)}
+.mobile-menu a{padding:8px 0;font-weight:500}
 
 /* ── HERO ───────────────────────────────────────────── */
-.hero{padding:168px 0 96px;position:relative}
-.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(242,118,46,.10) 1.5px,transparent 1.5px);background-size:26px 26px;pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:60px;align-items:center;position:relative}
-.hero h1{font-size:clamp(2.7rem,5.4vw,4.35rem);margin:6px 0 22px}
-.hero h1 em{font-style:italic;color:var(--orange-600);position:relative;white-space:nowrap}
-.hero h1 em svg{position:absolute;left:0;right:0;bottom:-.18em;width:100%;height:.32em}
-.hero .sub{margin-bottom:32px}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:30px}
-.hero-badges{display:flex;gap:10px;flex-wrap:wrap}
-.hbadge{display:inline-flex;align-items:center;gap:9px;background:#fff;border:1px solid var(--ink-08);border-radius:999px;padding:8px 16px;font-size:.85rem;font-weight:600;box-shadow:var(--shadow)}
-.hbadge i{width:8px;height:8px;border-radius:50%}
-.hero-art{position:relative}
-.hero-art .back1,.hero-art .back2{position:absolute;border-radius:var(--r-xl);z-index:0}
-.hero-art .back1{inset:26px -18px -22px 30px;background:var(--green);opacity:.9;transform:rotate(-3deg)}
-.hero-art .back2{inset:-20px 34px 40px -24px;background:var(--purple);opacity:.85;transform:rotate(2.5deg)}
-.hero-art .frame{position:relative;z-index:1;border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(1deg);background:#fff}
-.hero-art .frame img{width:100%;height:100%;object-fit:cover}
-.fchip{position:absolute;z-index:2;background:#fff;border-radius:18px;padding:12px 16px;box-shadow:var(--shadow-lg);font-size:.82rem;font-weight:600;display:flex;flex-direction:column;gap:2px;animation:floaty 5s ease-in-out infinite}
-.fchip small{font-weight:500;color:var(--ink-60)}
-.fchip .arr{color:var(--orange-600)}
-.fc1{top:8%;left:-7%;border-top:5px solid var(--orange)}
-.fc2{bottom:12%;right:-5%;border-top:5px solid var(--green);animation-delay:1.4s}
-.fc3{top:46%;right:-9%;border-top:5px solid var(--purple);animation-delay:.7s}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.hero{padding:140px 0 100px;border-bottom:1px solid var(--border)}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);margin:0 0 24px;font-weight:600}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .sub{margin-bottom:40px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.hero-badges{display:flex;gap:24px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:24px}
+.hbadge{display:flex;flex-direction:column;gap:4px}
+.hbadge b{font-family:var(--fd);font-size:1.6rem}
+.hbadge small{font-size:.85rem;color:var(--muted)}
+.hero-art{border:1px solid var(--border);padding:0;overflow:hidden}
+.hero-art img{width:100%;height:auto;filter:grayscale(.2) contrast(1.05)}
 
 /* ── MARQUEE ─────────────────────────────────────────── */
-.marquee{background:var(--blue-900);padding:18px 0;overflow:hidden;transform:rotate(-1.1deg) scale(1.03);border-radius:6px;box-shadow:var(--shadow)}
-.mq-track{display:flex;gap:44px;width:max-content;animation:mq 36s linear infinite}
-.marquee:hover .mq-track{animation-play-state:paused}
-.mq-track span{display:flex;align-items:center;gap:44px;color:var(--cream);font-weight:600;font-size:.95rem;white-space:nowrap}
-.mq-track b{color:var(--orange)}
-.mq-track u{text-decoration:none;color:var(--green)}
-@keyframes mq{to{transform:translateX(-50%)}}
+.support-strip{border-bottom:1px solid var(--border);padding:24px 0;text-align:center}
+.support-strip p{color:var(--muted);font-size:.9rem;letter-spacing:.02em}
+.support-strip b{color:var(--text);font-weight:700}
 
 /* ── ABOUT ─────────────────────────────────────────── */
-.about-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:64px;align-items:center}
-.about-art{position:relative}
-.about-art .frame{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(-1.2deg)}
-.about-art .stamp{position:absolute;bottom:-24px;right:-14px;background:var(--orange);color:#fff;border-radius:20px;padding:16px 22px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(2deg)}
-.about-art .stamp small{display:block;font-weight:500;opacity:.9}
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
-.pillar{border-radius:var(--r-lg);padding:26px 22px;color:#fff;transition:transform .3s}
-.pillar:hover{transform:translateY(-6px) rotate(-.6deg)}
-.pillar h3{font-size:1.15rem;margin-bottom:8px}
-.pillar p{font-size:.9rem;opacity:.94}
-.pillar .pico{font-size:1.5rem;margin-bottom:12px;display:block}
-.pl-b{background:var(--blue)} .pl-o{background:var(--orange)} .pl-g{background:var(--green)}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
+.about-art{border:1px solid var(--border);overflow:hidden}
+.about-art img{width:100%;filter:grayscale(.3)}
+.about-content h2{margin-bottom:24px}
+.about-list{display:flex;flex-direction:column;gap:24px;margin-top:32px}
+.about-item{border-top:1px solid var(--border);padding-top:20px}
+.about-item h3{font-size:1.2rem;margin-bottom:8px}
+.about-item p{color:var(--muted)}
 
-/* ── SERVICES ────────────────────────────────────────── */
-.svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
-.svc{background:#fff;border-radius:var(--r-lg);padding:30px 26px;border:1px solid var(--ink-08);box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
-.svc:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg)}
-.svc .ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;margin-bottom:20px}
-.svc .ico svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.svc h3{font-size:1.22rem;margin-bottom:10px}
-.svc p{font-size:.93rem;color:var(--ink-60);flex:1}
-.svc a{margin-top:18px;font-weight:700;font-size:.9rem;display:inline-flex;gap:6px;align-items:center;transition:gap .25s}
-.svc a:hover{gap:11px}
-.i-o{background:var(--orange)} .i-g{background:var(--green)} .i-b{background:var(--blue)} .i-p{background:var(--purple)}
-.svc:nth-child(1) a{color:var(--orange-600)} .svc:nth-child(2) a{color:var(--green-600)}
-.svc:nth-child(3) a{color:var(--blue)} .svc:nth-child(4) a{color:var(--purple-600)}
+/* ── SERVICES (Asymmetric split) ────────────────────── */
+.service-block{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;padding:80px 0;border-top:1px solid var(--border)}
+.service-block:nth-child(even) .svc-text{order:2}
+.service-block:last-child{border-bottom:1px solid var(--border)}
+.svc-text h3{font-size:1.8rem;margin-bottom:16px;font-weight:600}
+.svc-text p{color:var(--muted);margin-bottom:24px}
+.svc-graphic{border:1px solid var(--border);padding:32px;background:#fff}
+.svc-graphic .mock-ui{border:1px solid var(--border);padding:16px}
+.svc-graphic .mock-line{height:12px;background:var(--border);margin-bottom:12px;border-radius:var(--r-sm)}
+.svc-graphic .mock-line.short{width:40%}
+.svc-graphic .mock-line.med{width:70%}
 
 /* ── LANGUAGES / PHRASEBOOK ──────────────────────────── */
-.lang-panel{background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue) 52%,var(--purple) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,66px);color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
-.lang-panel::before,.lang-panel::after{content:"";position:absolute;border-radius:50%;opacity:.16}
-.lang-panel::before{width:420px;height:420px;background:var(--orange);top:-160px;right:-120px}
-.lang-panel::after{width:340px;height:340px;background:var(--green);bottom:-150px;left:-110px}
-.lang-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px;position:relative;z-index:1}
-.lang-head .eyebrow{background:rgba(255,255,255,.14);color:#FFD9BC}
-.src-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;position:relative;z-index:1}
-.tab{padding:11px 20px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:.92rem;transition:background .25s,transform .25s}
-.tab:hover{background:rgba(255,255,255,.24);transform:translateY(-2px)}
-.tab.active{background:var(--orange);box-shadow:0 8px 20px rgba(242,118,46,.4)}
-.phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;position:relative;z-index:1}
-.phrase-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);padding:30px;backdrop-filter:blur(6px)}
-.phrase-card h4{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75;margin-bottom:16px;font-family:var(--fb);font-weight:700}
-#srcPhrase{font-family:var(--fd);font-size:clamp(1.4rem,2.4vw,2rem);line-height:1.3}
-#srcGloss{margin-top:12px;color:#FFD9BC;font-size:.95rem}
-.tgt-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.tchip{padding:8px 15px;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font-size:.85rem;font-weight:600;transition:background .25s,transform .2s}
-.tchip:hover{background:rgba(255,255,255,.26)}
-.tchip.active{background:var(--green);box-shadow:0 8px 18px rgba(87,177,74,.45)}
-.tgt-out{background:#fff;color:var(--ink);border-radius:var(--r-md);padding:22px 24px;min-height:96px;font-family:var(--fd);font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.4;box-shadow:var(--shadow)}
-.tgt-out.pop{animation:pop .45s cubic-bezier(.2,1.4,.4,1)}
-@keyframes pop{from{transform:scale(.94);opacity:.3}to{transform:scale(1);opacity:1}}
-.lang-foot{margin-top:26px;font-size:.9rem;opacity:.85;position:relative;z-index:1}
-.lang-foot b{color:#B9E8AC}
+.lang-panel{background:var(--accent);color:var(--bg);padding:64px;border:1px solid var(--accent)}
+.lang-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:48px}
+.lang-head .eyebrow{color:rgba(253,251,247,.7);border-color:rgba(253,251,247,.2)}
+.lang-head h2{color:var(--bg);max-width:24ch}
+.src-tabs{display:flex;gap:0;flex-wrap:wrap;margin-bottom:32px;border-bottom:1px solid rgba(253,251,247,.2)}
+.tab{padding:10px 16px;background:transparent;color:rgba(253,251,247,.7);border:none;border-bottom:2px solid transparent;font-weight:500;font-size:.95rem;margin-bottom:-1px}
+.tab:hover{color:var(--bg)}
+.tab.active{color:var(--bg);border-bottom-color:var(--bg)}
+.phrase-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.phrase-card{background:transparent;border:1px solid rgba(253,251,247,.2);padding:24px}
+.phrase-card h4{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-bottom:16px;font-family:var(--fb);font-weight:700}
+#srcPhrase{font-family:var(--fd);font-size:1.8rem;line-height:1.3}
+#srcGloss{margin-top:12px;font-size:.9rem;opacity:.8}
+.tgt-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tchip{padding:6px 12px;border:1px solid rgba(253,251,247,.2);background:transparent;color:var(--bg);font-size:.85rem;font-weight:500;border-radius:var(--r-sm)}
+.tchip:hover{border-color:var(--bg)}
+.tchip.active{background:var(--bg);color:var(--accent);border-color:var(--bg)}
+.tgt-out{background:var(--bg);color:var(--text);padding:24px;min-height:96px;font-family:var(--fd);font-size:1.5rem;line-height:1.4;border:1px solid var(--bg)}
+.lang-foot{margin-top:32px;font-size:.9rem;opacity:.8}
 
-/* ── HOW ───────────────────────────────────────────── */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:52px;counter-reset:st}
-.step{background:#fff;border-radius:var(--r-lg);padding:30px 26px;border:1px solid var(--ink-08);box-shadow:var(--shadow);position:relative;overflow:hidden;transition:transform .3s}
-.step:hover{transform:translateY(-6px)}
-.step .num{font-family:var(--fd);font-weight:700;font-size:2.7rem;line-height:1;margin-bottom:16px;display:block}
-.step h3{font-size:1.15rem;margin-bottom:8px}
-.step p{font-size:.92rem;color:var(--ink-60)}
-.step::after{content:"";position:absolute;right:-26px;bottom:-26px;width:90px;height:90px;border-radius:26px;opacity:.14}
-.st-o .num{color:var(--orange)} .st-o::after{background:var(--orange)}
-.st-g .num{color:var(--green-600)} .st-g::after{background:var(--green)}
-.st-b .num{color:var(--blue)} .st-b::after{background:var(--blue)}
-.st-p .num{color:var(--purple)} .st-p::after{background:var(--purple)}
+/* ── HOW (Vertical timeline) ───────────────────────── */
+.steps{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--border);margin-left:16px;margin-top:48px}
+.step{padding:0 0 48px 32px;position:relative}
+.step::before{content:"";position:absolute;left:-5px;top:0;width:9px;height:9px;background:var(--bg);border:1px solid var(--accent);border-radius:50%}
+.step .num{font-family:var(--fd);font-weight:600;font-size:1rem;color:var(--muted);margin-bottom:8px;display:block}
+.step h3{font-size:1.3rem;margin-bottom:8px}
+.step p{color:var(--muted);max-width:50ch}
 
-/* ── DEMOS ───────────────────────────────────────────── */
-.demo-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap}
-.edit-pill{background:var(--green-100);color:var(--green-600);border-radius:999px;padding:10px 18px;font-weight:700;font-size:.85rem}
-.demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:46px}
-.demo-card{background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:transform .3s,box-shadow .3s;border:2px solid transparent;text-align:left}
-.demo-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--orange)}
-.demo-thumb{height:185px;position:relative;display:grid;place-items:center;overflow:hidden}
-.thumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ac-orange{background:linear-gradient(135deg,var(--orange-600),#FFAE66)}
-.ac-green{background:linear-gradient(135deg,var(--green-600),#9ADF82)}
-.ac-purple{background:linear-gradient(135deg,var(--purple-600),#B394EC)}
-.ac-blue{background:linear-gradient(135deg,var(--blue),#5B85CF)}
-.demo-thumb .glyph{position:absolute;font-size:5.4rem;opacity:.18;font-family:var(--fd);color:#fff;left:18px;bottom:-16px}
-.play{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 12px 28px rgba(0,0,0,.25);transition:transform .3s;position:relative;z-index:2}
-.demo-card:hover .play{transform:scale(1.14)}
-.play svg{width:22px;height:22px;fill:var(--ink);margin-left:3px}
-.demo-tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.92);padding:6px 13px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;z-index:2}
-.demo-dur{position:absolute;bottom:12px;right:12px;background:rgba(18,20,40,.6);color:#fff;padding:4px 11px;border-radius:999px;font-size:.76rem;font-weight:600;z-index:2}
-.demo-body{padding:24px}
-.demo-body h3{font-size:1.18rem;margin-bottom:8px}
-.demo-body p{font-size:.9rem;color:var(--ink-60)}
-.demo-open{margin-top:14px;font-weight:700;font-size:.88rem;color:var(--orange-600);display:inline-flex;gap:6px}
-.demo-add{border:2.5px dashed var(--green);border-radius:var(--r-lg);background:var(--green-100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:320px;color:var(--green-600);font-weight:700;font-size:1.02rem;transition:background .3s,transform .3s}
-.demo-add:hover{background:#D2EFC8;transform:translateY(-6px)}
-.demo-add .plus{width:62px;height:62px;border-radius:20px;background:var(--green);color:#fff;font-size:1.9rem;display:grid;place-items:center;box-shadow:0 10px 24px rgba(87,177,74,.4)}
-
-/* simulated in-browser video player */
-.sim-player{border-radius:var(--r-md);overflow:hidden;background:#10122B;box-shadow:var(--shadow)}
-.sim-stage{position:relative;aspect-ratio:16/9;background:#D6CA63;overflow:hidden}
-.sim-scene{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
-.sim-scene.on{opacity:1}
-.sim-scene img{width:100%;height:100%;object-fit:cover}
-.sim-sub{position:absolute;left:4%;right:4%;text-align:center;font-weight:700;pointer-events:none;color:#fff;line-height:1.3;text-shadow:-2px 0 #000,2px 0 #000,0 -2px #000,0 2px #000,-2px -2px #000,2px 2px #000,-2px 2px #000,2px -2px #000}
-.sim-sub-en{top:3%;font-size:clamp(.72rem,2vw,1.05rem)}
-.sim-sub-yo{bottom:4%;font-size:clamp(.72rem,2vw,1.05rem)}
-.sim-badge{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.92);border-radius:999px;padding:5px 12px;font-size:.72rem;font-weight:700;letter-spacing:.05em;z-index:3}
-.sim-play{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--ink);font-weight:800;font-size:.85rem;box-shadow:0 6px 16px rgba(0,0,0,.3);z-index:3}
-.sim-bar{display:flex;align-items:center;gap:12px;padding:12px 14px;background:#10122B;color:#fff}
-.sim-re{color:#fff;font-size:1.05rem;font-weight:800}
-.sim-prog{flex:1;height:7px;border-radius:999px;background:rgba(255,255,255,.18);cursor:pointer}
-.sim-prog i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--orange),var(--green))}
-.sim-time{font-size:.78rem;font-weight:600;opacity:.9}
-.ovl-list{position:absolute;top:9%;right:5%;display:flex;flex-direction:column;gap:2px;color:#111;text-align:left}
-.ovl-list b{font-family:var(--fd);font-size:clamp(.9rem,2.8vw,1.6rem)}
-.ovl-list span{font-size:clamp(.72rem,2.2vw,1.25rem)}
-.ovl-word{position:absolute;left:7%;top:18%;font-family:var(--fd);font-weight:700;color:#fff;font-size:clamp(1.4rem,4.5vw,2.8rem);letter-spacing:.06em;transform:rotate(-4deg);text-shadow:0 4px 16px rgba(0,0,0,.35)}
-.ovl-word.ovl-right{left:auto;right:7%}
-.ovl-final{position:absolute;right:5%;top:10%;text-align:center;font-family:var(--fd);font-weight:700;color:#fff;font-size:clamp(.8rem,2.4vw,1.4rem);line-height:1.25;text-shadow:0 4px 16px rgba(0,0,0,.4);transform:rotate(-2deg)}
-.def-slide{background:#D6CA63;display:grid;place-items:center;text-align:center}
-.def-wrap h5{font-family:var(--fd);font-size:clamp(1.4rem,4.5vw,2.7rem);color:#000;margin-bottom:10px}
-.def-wrap p{font-size:clamp(.72rem,2.1vw,1.2rem);color:#111;margin:4px 0}
-.cr{color:#C4392F}.cg{color:#57C08B}.cp{color:#B765E3}
+/* ── DEMOS (Single column list) ─────────────────────── */
+.demo-list{display:flex;flex-direction:column;gap:48px;margin-top:48px}
+.demo-item{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;padding-bottom:48px;border-bottom:1px solid var(--border)}
+.demo-item:last-child{border-bottom:none}
+.demo-thumb{width:100%;aspect-ratio:16/9;border:1px solid var(--border);overflow:hidden;background:var(--accent);position:relative;cursor:pointer}
+.demo-thumb img{width:100%;height:100%;object-fit:cover}
+.demo-body h3{font-size:1.4rem;margin-bottom:12px}
+.demo-body p{color:var(--muted);margin-bottom:20px}
+.demo-meta{display:flex;gap:16px;font-size:.85rem;color:var(--muted);margin-bottom:16px}
+.demo-meta span{border:1px solid var(--border);padding:4px 8px}
+.demo-open{font-weight:700;color:var(--accent);font-size:.9rem;border-bottom:1px solid var(--accent);padding-bottom:2px}
+.demo-add{margin-top:48px;border:1px dashed var(--border);padding:32px;text-align:center;width:100%;color:var(--accent);background:transparent;border-radius:var(--r-md)}
+.demo-add:hover{background:var(--border)}
 
 /* ── BENCH (upload / transcription) ──────────────────── */
-.bench{background:linear-gradient(120deg,var(--green-600) 0%,var(--blue) 58%,var(--purple) 100%);border-radius:var(--r-xl);padding:clamp(34px,5vw,64px);color:#fff;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
-.bench::before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:var(--orange);opacity:.16;top:-150px;left:-130px}
-.bench-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:52px;position:relative;z-index:1;align-items:start}
-.bench h2{color:#fff}
-.bench-points{margin:26px 0 0;display:flex;flex-direction:column;gap:14px}
-.bench-points li{list-style:none;display:flex;gap:12px;align-items:start;font-size:.97rem}
-.bench-points .tick{flex:0 0 26px;height:26px;border-radius:9px;background:var(--orange);display:grid;place-items:center;font-size:.8rem;font-weight:800;margin-top:2px}
-.bench-card{background:#fff;border-radius:var(--r-lg);padding:30px;color:var(--ink);box-shadow:0 30px 70px rgba(0,0,0,.28)}
-.drop{border:2.5px dashed var(--purple);border-radius:var(--r-md);padding:34px 20px;text-align:center;cursor:pointer;transition:border-color .25s,background .25s;background:var(--purple-100)}
-.drop:hover,.drop.drag{border-color:var(--orange);background:var(--orange-100)}
-.drop .up-ico{width:58px;height:58px;border-radius:18px;background:var(--purple);display:grid;place-items:center;margin:0 auto 14px}
-.drop .up-ico svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.drop b{font-size:1.05rem}
-.drop small{display:block;color:var(--ink-60);margin-top:6px}
-.drop .browse{color:var(--orange-600);font-weight:700;text-decoration:underline}
-.drop.shake{animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-.file-chip{display:none;align-items:center;gap:12px;background:var(--green-100);border:1.5px solid var(--green);border-radius:var(--r-sm);padding:12px 16px;margin-top:14px;font-size:.9rem;font-weight:600}
-.file-chip.show{display:flex}
-.file-chip .fx{margin-left:auto;background:var(--green);color:#fff;width:26px;height:26px;border-radius:9px;font-weight:800}
-.bench-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-.bench-row label{font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);display:block;margin-bottom:6px}
-.bench-row select{width:100%;padding:13px 14px;border-radius:var(--r-sm);border:1.5px solid var(--ink-08);background:#fff;appearance:auto}
-.wave{display:flex;align-items:flex-end;gap:3px;height:46px;margin-top:20px}
-.wave i{flex:1;border-radius:3px;background:linear-gradient(180deg,var(--orange),var(--purple));height:18%;transition:height .4s}
+.bench{background:var(--bg);border:1px solid var(--border);padding:64px}
+.bench-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px}
+.bench-points{margin:24px 0 0;display:flex;flex-direction:column;gap:12px}
+.bench-points li{list-style:none;display:flex;gap:12px;align-items:start;font-size:.95rem;color:var(--text)}
+.bench-points li::before{content:"—";color:var(--muted);font-weight:bold}
+.bench-card{background:#fff;border:1px solid var(--border);padding:32px}
+.drop{border:1px dashed var(--accent);padding:32px 20px;text-align:center;cursor:pointer;background:transparent;transition:background .2s}
+.drop:hover{background:var(--border)}
+.drop b{font-size:1.05rem;display:block;margin-bottom:8px}
+.drop small{display:block;color:var(--muted)}
+.bench-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.bench-row label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.bench-row select{width:100%;padding:10px 12px;border:1px solid var(--border);background:#fff}
+.wave{display:flex;align-items:flex-end;gap:2px;height:40px;margin-top:24px}
+.wave i{flex:1;background:var(--accent);height:20%;transition:height .4s}
 .wave.live i{animation:wv .8s ease-in-out infinite alternate}
-@keyframes wv{from{height:12%}to{height:100%}}
-.prog-wrap{margin-top:14px;display:none}
+@keyframes wv{from{height:10%}to{height:100%}}
+.prog-wrap{margin-top:16px;display:none}
 .prog-wrap.show{display:block}
-.prog{height:10px;border-radius:999px;background:var(--purple-100);overflow:hidden}
-.prog-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--orange),var(--green),var(--purple));transition:width .5s ease}
-#stepLabel{font-size:.86rem;font-weight:600;color:var(--purple-600);margin-top:8px;display:block}
-.bench-actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center}
+.prog{height:4px;background:var(--border);overflow:hidden}
+.prog-fill{height:100%;width:0%;background:var(--accent);transition:width .5s ease}
+#stepLabel{font-size:.85rem;font-weight:600;color:var(--accent);margin-top:8px;display:block}
+.bench-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
 .hint{font-size:.85rem;color:#D14343;font-weight:600;display:none;margin-top:10px}
 .hint.show{display:block}
-.results{display:none;margin-top:22px}
-.results.show{display:block;animation:pop .5s cubic-bezier(.2,1.2,.4,1)}
-.res{border-radius:var(--r-md);padding:18px 20px;margin-top:14px;font-size:.97rem;line-height:1.65}
-.res-src{background:var(--orange-100);border-left:6px solid var(--orange)}
-.res-tgt{background:var(--green-100);border-left:6px solid var(--green)}
-.res h5{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;font-family:var(--fb)}
-.res-src h5{color:var(--orange-600)} .res-tgt h5{color:var(--green-600)}
-.res-meta{font-size:.8rem;color:var(--ink-60);margin-top:12px}
-.res-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.cursor{display:inline-block;width:2px;height:1em;background:var(--orange-600);vertical-align:-2px;animation:blink .8s steps(1) infinite}
+.results{display:none;margin-top:32px;border-top:1px solid var(--border);padding-top:24px}
+.results.show{display:block}
+.res{padding:16px 0;font-size:.97rem;line-height:1.65}
+.res-src, .res-tgt{border:none}
+.res h5{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-family:var(--fb);color:var(--muted)}
+.res-meta{font-size:.8rem;color:var(--muted);margin-top:12px}
+.res-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--accent);vertical-align:-2px;animation:blink .8s steps(1) infinite}
 @keyframes blink{50%{opacity:0}}
 
-/* ── EDUCATION ───────────────────────────────────────── */
-.edu-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
-.edu-list{margin:28px 0 32px;display:flex;flex-direction:column;gap:18px}
-.edu-item{display:flex;gap:16px;align-items:start;background:#fff;border:1px solid var(--ink-08);border-radius:var(--r-md);padding:20px 22px;box-shadow:var(--shadow);transition:transform .3s}
-.edu-item:hover{transform:translateX(8px)}
-.edu-item .eico{flex:0 0 46px;height:46px;border-radius:15px;display:grid;place-items:center;font-size:1.2rem}
-.edu-item h3{font-size:1.08rem;margin-bottom:4px}
-.edu-item p{font-size:.9rem;color:var(--ink-60)}
-.edu-art .frame{border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-lg);transform:rotate(1.4deg)}
-.edu-art{position:relative}
-.edu-art .stamp{position:absolute;top:-22px;left:-16px;background:var(--purple);color:#fff;border-radius:18px;padding:14px 20px;font-weight:700;box-shadow:var(--shadow-lg);transform:rotate(-2deg)}
+/* ── EDUCATION ─────────────────────────────────────── */
+.edu-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center}
+.edu-list{margin:32px 0;display:flex;flex-direction:column;gap:24px}
+.edu-item{border-top:1px solid var(--border);padding-top:20px}
+.edu-item h3{font-size:1.1rem;margin-bottom:6px}
+.edu-item p{color:var(--muted);font-size:.9rem}
+.edu-art{border:1px solid var(--border);overflow:hidden}
+.edu-art img{width:100%;filter:grayscale(.3)}
 
 /* ── IMPACT ──────────────────────────────────────────── */
-.impact{background:var(--orange);border-radius:var(--r-xl);padding:clamp(36px,5vw,60px);display:grid;grid-template-columns:repeat(4,1fr);gap:32px;color:#fff;box-shadow:0 24px 60px rgba(242,118,46,.35);position:relative;overflow:hidden}
-.impact::before{content:"";position:absolute;right:-90px;top:-90px;width:280px;height:280px;border-radius:60px;background:var(--purple);opacity:.28;transform:rotate(18deg)}
-.impact::after{content:"";position:absolute;left:-70px;bottom:-100px;width:240px;height:240px;border-radius:60px;background:var(--green);opacity:.3;transform:rotate(-14deg)}
-.imp{position:relative;z-index:1;text-align:center}
-.imp .count{font-family:var(--fd);font-weight:700;font-size:clamp(2.2rem,4vw,3.3rem);display:block;line-height:1.1}
-.imp small{font-weight:600;opacity:.95;font-size:.92rem}
+.impact{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 0}
+.imp{text-align:left}
+.imp .count{font-family:var(--fd);font-weight:600;font-size:2.5rem;display:block;line-height:1.1;margin-bottom:8px}
+.imp small{font-weight:500;color:var(--muted);font-size:.9rem}
 
 /* ── CTA ─────────────────────────────────────────────── */
-.cta-panel{background:linear-gradient(120deg,var(--purple-600),var(--blue) 70%);border-radius:var(--r-xl);padding:clamp(44px,6vw,80px);text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
-.cta-panel::before,.cta-panel::after{content:"";position:absolute;border-radius:50%}
-.cta-panel::before{width:300px;height:300px;background:var(--orange);opacity:.22;top:-130px;left:-90px}
-.cta-panel::after{width:260px;height:260px;background:var(--green);opacity:.22;bottom:-120px;right:-70px}
-.cta-panel h2{color:#fff;font-size:clamp(2rem,4vw,3.2rem);max-width:22ch;margin:0 auto 16px;position:relative;z-index:1}
-.cta-panel p{opacity:.92;max-width:52ch;margin:0 auto 34px;position:relative;z-index:1}
-.cta-panel .hero-ctas{justify-content:center;position:relative;z-index:1}
+.cta-panel{background:var(--accent);color:var(--bg);padding:80px 48px;text-align:center}
+.cta-panel h2{color:var(--bg);font-size:2.4rem;max-width:20ch;margin:0 auto 16px}
+.cta-panel p{opacity:.9;max-width:50ch;margin:0 auto 32px}
+.cta-panel .btn{border-color:var(--bg);color:var(--bg)}
+.cta-panel .btn:hover{background:var(--bg);color:var(--accent)}
+.cta-panel .btn-primary{background:var(--bg);color:var(--accent);border-color:var(--bg)}
+.cta-panel .btn-primary:hover{background:transparent;color:var(--bg)}
 
 /* ── FOOTER ──────────────────────────────────────────── */
-footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) var(--r-xl) 0 0;margin-top:96px;padding:64px 0 30px}
-.nl{display:flex;gap:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-lg);padding:22px;flex-wrap:wrap;align-items:center;margin-bottom:52px}
-.nl h3{font-size:1.25rem;margin-right:auto}
-.nl input{flex:1;min-width:220px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:var(--r-sm);padding:13px 16px;color:#fff}
-.nl input::placeholder{color:rgba(255,255,255,.5)}
-.nl .ok{font-weight:700;color:#9ADF82}
-.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px;margin-bottom:44px}
-.foot-grid h4{font-size:.82rem;letter-spacing:.16em;text-transform:uppercase;color:#FFC79A;margin-bottom:18px}
-.foot-grid a{display:block;padding:5px 0;opacity:.85;font-size:.94rem;transition:opacity .2s,transform .2s}
-.foot-grid a:hover{opacity:1;transform:translateX(4px);color:#9ADF82}
-.foot-brand p{opacity:.8;font-size:.93rem;margin-top:14px;max-width:34ch}
-.foot-brand .logo{color:#fff}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.14);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.86rem;opacity:.78}
-.legal-link{color:inherit;font:inherit;font-size:inherit;padding:0;text-decoration:underline;text-underline-offset:3px;transition:color .2s}
-.legal-link:hover{color:#9ADF82}
+footer{background:var(--text);color:var(--bg);padding:64px 0 32px}
+.nl{display:flex;gap:16px;background:transparent;border:1px solid rgba(253,251,247,.2);padding:24px;flex-wrap:wrap;align-items:center;margin-bottom:48px}
+.nl h3{font-size:1.2rem;margin-right:auto}
+.nl input{flex:1;min-width:220px;background:transparent;border:1px solid rgba(253,251,247,.3);padding:12px 16px;color:var(--bg)}
+.nl .ok{font-weight:700;color:var(--bg)}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px;margin-bottom:48px}
+.foot-grid h4{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(253,251,247,.7);margin-bottom:16px}
+.foot-grid a{display:block;padding:4px 0;opacity:.9;font-size:.95rem;font-weight:400}
+.foot-grid a:hover{opacity:1;text-decoration:underline}
+.foot-brand p{opacity:.7;font-size:.9rem;margin-top:12px;max-width:34ch}
+.foot-bottom{border-top:1px solid rgba(253,251,247,.15);padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.85rem;opacity:.7}
+.legal-link{color:inherit;font:inherit;font-size:inherit;padding:0;text-decoration:underline;text-underline-offset:3px;background:none;border:none}
 
 /* ── MODALS ──────────────────────────────────────────── */
-.modal-backdrop{position:fixed;inset:0;background:rgba(18,20,40,.55);backdrop-filter:blur(6px);z-index:80;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-backdrop{position:fixed;inset:0;background:rgba(26,26,26,.6);z-index:80;display:none;align-items:center;justify-content:center;padding:24px}
 .modal-backdrop.open{display:flex}
-.modal-card{background:#fff;border-radius:var(--r-lg);max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:36px;position:relative;box-shadow:var(--shadow-lg);animation:pop .35s cubic-bezier(.2,1.2,.4,1)}
-.modal-card.legal{max-width:840px}
-.modal-x{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:14px;background:var(--orange-100);color:var(--orange-600);font-size:1.1rem;font-weight:800;transition:background .2s;z-index:2}
-.modal-x:hover{background:var(--orange);color:#fff}
+.modal-card{background:var(--bg);border:1px solid var(--text);max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:40px;position:relative}
+.modal-card.legal{max-width:800px}
+.modal-x{position:absolute;top:16px;right:16px;border:1px solid var(--border);background:transparent;color:var(--text);width:32px;height:32px;font-size:1rem}
 .modal-card h3{font-size:1.6rem;margin:8px 0 6px}
-.modal-card .mdesc{color:var(--ink-60);margin-bottom:20px}
-.mtagrow{display:flex;gap:10px;align-items:center}
-.mtag{background:var(--purple-100);color:var(--purple-600);padding:6px 14px;border-radius:999px;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.mdur{font-size:.85rem;color:var(--ink-60);font-weight:600}
-.media-area{margin-top:8px}
-.media-area video,.media-area iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-md);background:#000}
-.ph{border:2.5px dashed var(--purple);background:var(--purple-100);border-radius:var(--r-md);padding:34px 24px;text-align:center}
-.ph .ph-ico{width:60px;height:60px;border-radius:50%;background:var(--purple);color:#fff;display:grid;place-items:center;margin:0 auto 14px;font-size:1.2rem}
-.ph p{font-size:.92rem;color:var(--ink-60);max-width:46ch;margin:0 auto 18px}
-.ph-row{display:flex;gap:10px;max-width:480px;margin:0 auto}
-.ph-row input{flex:1;padding:12px 14px;border-radius:var(--r-sm);border:1.5px solid var(--ink-08)}
-.modal-note{margin-top:18px;font-size:.84rem;color:var(--ink-60);background:var(--cream);border-radius:var(--r-sm);padding:12px 16px}
-.modal-note b{color:var(--green-600)}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.modal-card .mdesc{color:var(--muted);margin-bottom:24px}
+.mtagrow{display:flex;gap:12px;align-items:center;margin-bottom:16px}
+.mtag{border:1px solid var(--border);padding:4px 12px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.mdur{font-size:.85rem;color:var(--muted)}
+.media-area{margin-top:8px;border:1px solid var(--border)}
+.media-area video,.media-area iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.ph{padding:24px;text-align:center}
+.ph p{font-size:.92rem;color:var(--muted);max-width:46ch;margin:0 auto 18px}
+.ph-row{display:flex;gap:8px;max-width:480px;margin:0 auto}
+.ph-row input{flex:1;padding:10px 12px;border:1px solid var(--border)}
+.modal-note{margin-top:18px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
 .form-grid .full{grid-column:1/-1}
-.form-grid label{font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-60);display:block;margin-bottom:6px}
-.form-grid input,.form-grid select,.form-grid textarea{width:100%;padding:12px 14px;border-radius:var(--r-sm);border:1.5px solid var(--ink-08);background:#fff;resize:vertical}
+.form-grid label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.form-grid input,.form-grid select,.form-grid textarea{width:100%;padding:10px 12px;border:1px solid var(--border);background:#fff;resize:vertical}
 .form-err{color:#D14343;font-size:.85rem;font-weight:600;margin-top:10px;display:none}
 
 /* legal content */
-.legal-updated{display:inline-block;background:var(--green-100);color:var(--green-600);font-size:.8rem;font-weight:700;padding:7px 14px;border-radius:999px;margin-bottom:6px}
-.legal-content h4{font-size:1.02rem;margin:24px 0 6px;color:var(--blue)}
-.legal-content p,.legal-content li{font-size:.93rem;color:var(--ink-60);line-height:1.7}
-.legal-content ul{padding-left:22px;margin:8px 0}
+.legal-updated{display:inline-block;border:1px solid var(--border);font-size:.8rem;font-weight:700;padding:4px 12px;margin-bottom:16px}
+.legal-content h4{font-size:1.05rem;margin:24px 0 6px;color:var(--text)}
+.legal-content p,.legal-content li{font-size:.95rem;color:var(--muted);line-height:1.7}
+.legal-content ul{padding-left:20px;margin:8px 0}
 .legal-content li{margin-bottom:4px}
-.legal-content b{color:var(--ink)}
+.legal-content b{color:var(--text)}
+
+/* simulated in-browser video player */
+.sim-player{border:1px solid var(--border);background:var(--bg)}
+.sim-stage{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+.sim-scene{position:absolute;inset:0;opacity:0;transition:opacity .4s ease}
+.sim-scene.on{opacity:1}
+.sim-scene img{width:100%;height:100%;object-fit:cover}
+.sim-sub{position:absolute;left:4%;right:4%;text-align:center;font-weight:500;pointer-events:none;color:#fff;line-height:1.3;background:rgba(0,0,0,.6);padding:4px 8px}
+.sim-sub-en{top:6%;font-size:1rem}
+.sim-sub-yo{bottom:6%;font-size:1rem}
+.sim-badge{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.9);color:#111;padding:4px 8px;font-size:.7rem;font-weight:700;z-index:3}
+.sim-play{position:absolute;top:10px;right:10px;width:32px;height:32px;background:rgba(255,255,255,.9);color:#111;font-weight:800;font-size:.8rem;z-index:3;border:none}
+.sim-bar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-top:1px solid var(--border)}
+.sim-re{color:var(--text);font-size:1rem;font-weight:800;background:none;border:none}
+.sim-prog{flex:1;height:4px;background:var(--border);cursor:pointer}
+.sim-prog i{display:block;height:100%;width:0;background:var(--accent)}
+.sim-time{font-size:.8rem;font-weight:600;color:var(--muted)}
+.ovl-list{position:absolute;top:9%;right:5%;display:flex;flex-direction:column;gap:2px;color:#111;text-align:left}
+.ovl-list b{font-family:var(--fd);font-size:clamp(.9rem,2.8vw,1.6rem)}
+.ovl-list span{font-size:clamp(.72rem,2.2vw,1.25rem)}
+.ovl-word{position:absolute;left:7%;top:18%;font-family:var(--fd);font-weight:600;color:#fff;font-size:clamp(1.4rem,4.5vw,2.8rem);text-shadow:0 4px 16px rgba(0,0,0,.35)}
+.ovl-word.ovl-right{left:auto;right:7%}
+.ovl-final{position:absolute;right:5%;top:10%;text-align:center;font-family:var(--fd);font-weight:600;color:#fff;font-size:clamp(.8rem,2.4vw,1.4rem);line-height:1.25;text-shadow:0 4px 16px rgba(0,0,0,.4)}
+.def-slide{background:#fff;display:grid;place-items:center;text-align:center}
+.def-wrap h5{font-family:var(--fd);font-size:clamp(1.4rem,4.5vw,2.7rem);color:#000;margin-bottom:10px}
+.def-wrap p{font-size:clamp(.72rem,2.1vw,1.2rem);color:#111;margin:4px 0}
 
 /* ── RESPONSIVE ──────────────────────────────────────── */
 @media(max-width:1020px){
-  .svc-grid,.steps{grid-template-columns:repeat(2,1fr)}
-  .demo-grid{grid-template-columns:repeat(2,1fr)}
-  .bench-grid,.about-grid,.edu-grid,.phrase-grid{grid-template-columns:1fr}
-  .hero-grid{grid-template-columns:1fr;gap:70px}
-  .fc1{left:2%}.fc2{right:2%}.fc3{right:4%}
+  .bench-grid,.about-grid,.edu-grid,.phrase-grid,.hero-grid{grid-template-columns:1fr;gap:48px}
+  .service-block{grid-template-columns:1fr;gap:32px;padding:48px 0}
+  .service-block:nth-child(even) .svc-text{order:0}
+  .demo-item{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:700px){
   .nav-links,.nav .btn{display:none}
-  .burger{display:grid}
-  .svc-grid,.steps,.demo-grid,.pillars,.impact{grid-template-columns:1fr}
-  .bench-row,.form-grid{grid-template-columns:1fr}
-  .sec{padding:72px 0}
-  .hero{padding-top:130px}
+  .burger{display:block}
+  .steps{margin-left:8px}
+  .impact{grid-template-columns:1fr 1fr}
+  .sec{padding:80px 0}
+  .hero{padding-top:100px}
   .foot-grid{grid-template-columns:1fr}
-  .modal-card{padding:28px 22px}
+  .modal-card{padding:24px}
+  .bench{padding:32px}
+  .cta-panel{padding:48px 24px}
 }
 </style>
 </head>
@@ -396,19 +307,18 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 <!-- ══════════ NAV ══════════ -->
 <div class="nav-wrap">
   <nav class="nav" aria-label="Main navigation">
-    <a class="logo" href="#home" aria-label="babalang home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#F2762E"/><circle cx="65" cy="35" r="26" fill="#57B14A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B3A6E" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#6B4AA8" opacity=".92"/></svg><span class="lt">Baba<b>lang</b></span></a>
+    <a class="logo" href="#home" aria-label="babalang home">babalang</a>
     <div class="nav-links">
       <a href="#about">About</a><a href="#services">Services</a><a href="#languages">Languages</a>
       <a href="#demos">Demos</a><a href="#transcribe">Transcribe</a><a href="#education">Education</a>
     </div>
-    <a class="btn btn-o btn-sm" href="#transcribe">Upload audio</a>
-    <button class="burger" id="burger" aria-label="Open menu">☰</button>
+    <a class="btn btn-primary btn-sm" href="#transcribe">Start project</a>
+    <button class="burger" id="burger" aria-label="Open menu">Menu</button>
   </nav>
 </div>
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about">About</a><a href="#services">Services</a><a href="#languages">Languages</a>
   <a href="#demos">Demos</a><a href="#transcribe">Transcribe</a><a href="#education">Education</a>
-  <a href="#contact" class="btn btn-o" style="margin-top:8px;justify-content:center">Upload audio</a>
 </div>
 
 <main>
@@ -416,33 +326,29 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 <section class="hero" id="home">
   <div class="wrap hero-grid">
     <div class="reveal in">
-      <span class="eyebrow ey-o"><span class="quad"><i></i><i></i><i></i><i></i></span> Classical speech · African languages</span>
-      <h1>Classical voices, <em>alive<svg viewBox="0 0 220 24" preserveAspectRatio="none" aria-hidden="true"><path d="M4 16 C 40 6, 70 22, 108 12 S 180 6, 216 14" fill="none" stroke="#57B14A" stroke-width="7" stroke-linecap="round"/></svg></em> in African tongues.</h1>
-      <p class="sub">babalang turns speech in Latin, Ancient Greek, Sanskrit, Classical Arabic and more into natural text and audio across 30+ African languages — unlocking courts, clinics, classrooms and archives that translation never reached.</p>
+      <span class="eyebrow">Classical speech · African languages</span>
+      <h1>We transcribe classical speech into <em>living</em> African languages.</h1>
+      <p class="sub">babalang turns audio in Latin, Ancient Greek, Sanskrit, and Classical Arabic into natural text and audio across 30+ African languages, unlocking archives, courts, and classrooms that translation never reached.</p>
       <div class="hero-ctas">
-        <a class="btn btn-o" href="#transcribe">🎙 Upload audio for transcription</a>
-        <a class="btn btn-ghost" href="#demos">▶&nbsp; Watch the demos</a>
+        <a class="btn btn-primary" href="#transcribe">Start a transcription project</a>
+        <a class="btn" href="#demos">View live demos</a>
       </div>
       <div class="hero-badges">
-        <span class="hbadge"><i style="background:var(--orange)"></i>12 classical sources</span>
-        <span class="hbadge"><i style="background:var(--green)"></i>34 African languages</span>
-        <span class="hbadge"><i style="background:var(--purple)"></i>96% transcription accuracy</span>
+        <span class="hbadge"><b>12</b><small>classical sources</small></span>
+        <span class="hbadge"><b>34</b><small>African languages</small></span>
+        <span class="hbadge"><b>96%</b><small>transcription accuracy</small></span>
       </div>
     </div>
     <div class="hero-art reveal in">
-      <div class="back1"></div><div class="back2"></div>
-      <div class="frame"><img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1294ada17-2443-4ecf-a051-df15dc8fcd00.png" alt="Illustration of a classical scroll and column whose sound waves reach an African talking drum"></div>
-      <div class="fchip fc1"><span>🎙 Latin homily</span><small><span class="arr">→</span> Kiswahili subtitles</small></div>
-      <div class="fchip fc2"><span>Ἀντιγόνη · Sophocles</span><small><span class="arr">→</span> isiZulu audio</small></div>
-      <div class="fchip fc3"><span>العلم نور</span><small><span class="arr">→</span> Hausa voiceover</small></div>
+      <img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1294ada17-2443-4ecf-a051-df15dc8fcd00.png" alt="Illustration of a classical scroll and column whose sound waves reach an African talking drum">
     </div>
   </div>
 </section>
 
-<!-- ══════════ MARQUEE ══════════ -->
-<div class="marquee" aria-hidden="true">
-  <div class="mq-track" id="mqTrack">
-    <span>Latin <b>→</b> <u>Kiswahili</u> ✦ Ancient Greek <b>→</b> <u>Yorùbá</u> ✦ Sanskrit <b>→</b> <u>isiZulu</u> ✦ Classical Arabic <b>→</b> <u>Hausa</u> ✦ Biblical Hebrew <b>→</b> <u>Amharic</u> ✦ Geʽez <b>→</b> <u>Igbo</u> ✦ Coptic <b>→</b> <u>Wolof</u> ✦ Pali <b>→</b> <u>Af-Soomaali</u> ✦&nbsp;</span>
+<!-- ══════════ SUPPORT STRIP ══════════ -->
+<div class="support-strip">
+  <div class="wrap">
+    <p>Currently supporting <b>Latin to Kiswahili</b>, <b>Greek to Yorùbá</b>, <b>Sanskrit to isiZulu</b>, and <b>Arabic to Hausa</b>.</p>
   </div>
 </div>
 
@@ -450,133 +356,206 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 <section class="sec" id="about">
   <div class="wrap about-grid">
     <div class="about-art reveal">
-      <div class="frame"><img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1e147a571-15f5-4c84-919a-aaf771dff74e.png" alt="Elder African woman speaking into a microphone, her words becoming birds and books"></div>
-      <div class="stamp">Since 2021<small>Nairobi · Accra · Cape Town</small></div>
+      <img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1e147a571-15f5-4c84-919a-aaf771dff74e.png" alt="Elder African woman speaking into a microphone">
     </div>
-    <div class="reveal">
-      <span class="eyebrow ey-b"><span class="quad"><i></i><i></i><i></i><i></i></span> Why we exist</span>
-      <h2>Bridges from the classics to the community.</h2>
-      <p class="sub" style="margin-top:18px">Thousands of hours of classical speech — sermons, oral histories, legal maxims, epic verse — sit locked in archives, courts and classrooms across Africa, because nobody has bridged them into living languages. babalang builds that bridge: scholar-trained speech recognition for classical tongues, paired with natural African-language output. We go first to the communities that never had a translation option — and we hand the tools to schools.</p>
-      <div class="pillars">
-        <div class="pillar pl-b"><span class="pico">🏛</span><h3>Access</h3><p>Interpretation bridges for courts, clinics, museums and civic services where translation was never an option.</p></div>
-        <div class="pillar pl-o"><span class="pico">📜</span><h3>Preservation</h3><p>Archival speech rescued, transcribed and returned to communities in the languages they live in.</p></div>
-        <div class="pillar pl-g"><span class="pico">🎓</span><h3>Education</h3><p>Free classroom kits, teacher training and an open corpus for learners across the continent.</p></div>
+    <div class="about-content reveal">
+      <span class="eyebrow">Why we exist</span>
+      <h2>We build bridges from the classics to the community.</h2>
+      <p class="sub">Thousands of hours of classical speech sit locked in archives, courts, and classrooms across Africa. Scholar-trained speech recognition for classical tongues, paired with natural African-language output, solves this. We prioritize the communities that never had a translation option.</p>
+      <div class="about-list">
+        <div class="about-item"><h3>Access</h3><p>Interpretation bridges for courts, clinics, museums, and civic services where translation was never an option.</p></div>
+        <div class="about-item"><h3>Preservation</h3><p>Archival speech rescued, transcribed, and returned to communities in the languages they live in.</p></div>
+        <div class="about-item"><h3>Education</h3><p>Free classroom kits, teacher training, and an open corpus for learners across the continent.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════ SERVICES ══════════ -->
-<section class="sec" id="services" style="padding-top:20px">
+<!-- ══════════ SERVICES (Asymmetric) ══════════ -->
+<section class="sec" id="services" style="padding-top:0">
   <div class="wrap">
-    <div class="reveal" style="text-align:center;max-width:720px;margin:0 auto">
-      <span class="eyebrow ey-g"><span class="quad"><i></i><i></i><i></i><i></i></span> What we do</span>
+    <div class="reveal" style="text-align:left;max-width:720px;margin:0 0 40px">
+      <span class="eyebrow">What we do</span>
       <h2>Four services, one bridge.</h2>
-      <p class="sub" style="margin:14px auto 0">Every service ships in all four of our colours — because every project pairs a classical source with a living African language.</p>
+      <p class="sub" style="margin-top:14px">Every service ships in our core format: pairing a classical source with a living African language.</p>
     </div>
-    <div class="svc-grid">
-      <article class="svc reveal"><div class="ico i-o"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></div><h3>Speech-to-Text</h3><p>Classical-language audio transcribed with scholarly-grade accuracy — timestamped, annotated and exportable.</p><a href="#transcribe">Try the bench →</a></article>
-      <article class="svc reveal"><div class="ico i-g"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18-3-4-3-14.5 0-18z"/></svg></div><h3>Living Translation</h3><p>Speech in Latin, Greek, Sanskrit and more, reborn as natural text and audio in 30+ African languages.</p><a href="#languages">See language pairs →</a></article>
-      <article class="svc reveal"><div class="ico i-b"><svg viewBox="0 0 24 24"><path d="M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></div><h3>Access Services</h3><p>Interpretation for courts, hospitals, museums and public broadcasts that never had translation options.</p><a href="#about">Access programmes →</a></article>
-      <article class="svc reveal"><div class="ico i-p"><svg viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5z"/><path d="M6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5"/></svg></div><h3>Education Initiatives</h3><p>Free lesson kits, teacher training and open corpora bringing classical texts into African classrooms.</p><a href="#education">School programmes →</a></article>
+    
+    <div class="service-block reveal">
+      <div class="svc-text">
+        <h3>Speech-to-Text</h3>
+        <p>Classical-language audio transcribed with scholarly-grade accuracy. Outputs are timestamped, annotated, and exportable for immediate use.</p>
+        <a class="btn btn-sm" href="#transcribe">Try the bench</a>
+      </div>
+      <div class="svc-graphic">
+        <div class="mock-ui">
+          <div class="mock-line med"></div>
+          <div class="mock-line short"></div>
+          <div class="mock-line med"></div>
+          <div class="mock-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block reveal">
+      <div class="svc-text">
+        <h3>Living Translation</h3>
+        <p>Speech in Latin, Greek, Sanskrit, and more, reborn as natural text and audio in 30+ African languages. Context-aware machine translation reviewed by linguists.</p>
+        <a class="btn btn-sm" href="#languages">See language pairs</a>
+      </div>
+      <div class="svc-graphic">
+        <div class="mock-ui">
+          <div class="mock-line med"></div>
+          <div class="mock-line"></div>
+          <div class="mock-line short"></div>
+          <div class="mock-line med"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block reveal">
+      <div class="svc-text">
+        <h3>Access Services</h3>
+        <p>Interpretation for courts, hospitals, museums, and public broadcasts that never had translation options. We handle the technical pipeline.</p>
+        <a class="btn btn-sm" href="#about">Access programmes</a>
+      </div>
+      <div class="svc-graphic">
+        <div class="mock-ui">
+          <div class="mock-line short"></div>
+          <div class="mock-line med"></div>
+          <div class="mock-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-block reveal">
+      <div class="svc-text">
+        <h3>Education Initiatives</h3>
+        <p>Free lesson kits, teacher training, and open corpora bringing classical texts into African classrooms in learners' own languages.</p>
+        <a class="btn btn-sm" href="#education">School programmes</a>
+      </div>
+      <div class="svc-graphic">
+        <div class="mock-ui">
+          <div class="mock-line med"></div>
+          <div class="mock-line short"></div>
+          <div class="mock-line med"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════ LANGUAGES / PHRASEBOOK ══════════ -->
-<section class="sec" id="languages">
+<section class="sec" id="languages" style="padding-top:0">
   <div class="wrap">
     <div class="lang-panel reveal">
       <div class="lang-head">
         <div>
-          <span class="eyebrow"><span class="quad"><i></i><i></i><i></i><i></i></span> Interactive phrasebook</span>
-          <h2 style="max-width:24ch">Pick a classical voice. Hear it in Africa.</h2>
+          <span class="eyebrow">Interactive phrasebook</span>
+          <h2>Pick a classical voice. Hear it in Africa.</h2>
         </div>
-        <p style="max-width:38ch;opacity:.9">Tap a source language, then choose the African language you want to hear it in. A tiny taste of the full engine.</p>
+        <p style="max-width:38ch;opacity:.8">Tap a source language, then choose the African language you want to hear it in.</p>
       </div>
-      <div class="src-tabs" id="srcTabs" role="tablist"></div>
+      <div class="src-tabs" id="srcTabs" role="tablist">
+        <button class="tab active" data-src="latin">Latin</button>
+        <button class="tab" data-src="greek">Ancient Greek</button>
+        <button class="tab" data-src="sanskrit">Sanskrit</button>
+        <button class="tab" data-src="arabic">Classical Arabic</button>
+        <button class="tab" data-src="hebrew">Biblical Hebrew</button>
+        <button class="tab" data-src="geez">Geʽez</button>
+      </div>
       <div class="phrase-grid">
         <div class="phrase-card">
           <h4>Classical source</h4>
-          <div id="srcPhrase" dir="ltr"></div>
-          <div id="srcGloss"></div>
+          <div id="srcPhrase" dir="ltr">Scientia est lux.</div>
+          <div id="srcGloss">"Knowledge is light." — proverb of the schools</div>
         </div>
         <div class="phrase-card">
           <h4>Living translation</h4>
           <div class="tgt-chips" id="tgtChips"></div>
-          <div class="tgt-out" id="tgtOut"></div>
+          <div class="tgt-out pop" id="tgtOut">Elimu ni mwanga.</div>
         </div>
       </div>
-      <p class="lang-foot">Production coverage: <b>12 classical sources × 34 African languages</b>, reviewed by 60+ scholars and native-speaker linguists.</p>
+      <p class="lang-foot">Production coverage: <b>12 classical sources × 34 African languages</b>, reviewed by 60+ scholars.</p>
     </div>
   </div>
 </section>
 
-<!-- ══════════ HOW IT WORKS ══════════ -->
-<section class="sec" id="how" style="padding-top:20px">
+<!-- ══════════ HOW IT WORKS (Timeline) ══════════ -->
+<section class="sec" id="how" style="padding-top:0">
   <div class="wrap">
-    <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto">
-      <span class="eyebrow ey-p"><span class="quad"><i></i><i></i><i></i><i></i></span> How it works</span>
+    <div class="reveal" style="text-align:left;max-width:680px;margin:0 0 40px">
+      <span class="eyebrow">How it works</span>
       <h2>From archive reel to living voice.</h2>
     </div>
     <div class="steps">
-      <div class="step st-o reveal"><span class="num">01</span><h3>Upload</h3><p>Drop in audio — a sermon, a lecture, an archive reel — or capture live speech in the field.</p></div>
-      <div class="step st-g reveal"><span class="num">02</span><h3>Transcribe</h3><p>ASR tuned to classical phonology and metre, checked against scholarly corpora.</p></div>
-      <div class="step st-b reveal"><span class="num">03</span><h3>Translate</h3><p>Context-aware machine translation, reviewed by native-speaker linguists and classicists.</p></div>
-      <div class="step st-p reveal"><span class="num">04</span><h3>Deliver</h3><p>Text, subtitles or natural audio in the African language of your community's choice.</p></div>
+      <div class="step reveal">
+        <span class="num">Step 01</span>
+        <h3>Upload</h3>
+        <p>Drop in audio, a sermon, a lecture, an archive reel, or capture live speech in the field.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">Step 02</span>
+        <h3>Transcribe</h3>
+        <p>ASR tuned to classical phonology and metre, checked against scholarly corpora.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">Step 03</span>
+        <h3>Translate</h3>
+        <p>Context-aware machine translation, reviewed by native-speaker linguists and classicists.</p>
+      </div>
+      <div class="step reveal">
+        <span class="num">Step 04</span>
+        <h3>Deliver</h3>
+        <p>Text, subtitles, or natural audio in the African language of your community's choice.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════
      ✏️  DEMO PRESENTATIONS — EASILY EDITABLE
-     • The two built-in showcases are the attached videos:
-       the digestive-system lesson and the Britannia BisCafe ad,
-       both played as in-browser simulated players with live
-       English → Yorùbá subtitles. To use the final renders, open
-       each demo and paste an MP4 / YouTube URL, or set `media`
-       in DEFAULT_DEMOS below (search "✏️ EDIT DEMOS HERE").
-     • Or on the live page: click "+ Add your demo" — new demos
-       are saved in this browser automatically.
      ════════════════════════════════════════════════════════════ -->
-<section class="sec" id="demos" style="padding-top:20px">
+<section class="sec" id="demos" style="padding-top:0">
   <div class="wrap">
-    <div class="demo-head reveal">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:24px;margin-bottom:40px">
       <div>
-        <span class="eyebrow ey-o"><span class="quad"><i></i><i></i><i></i><i></i></span> Demo presentations</span>
+        <span class="eyebrow">Demo presentations</span>
         <h2>See the bridge in action.</h2>
-        <p class="sub" style="margin-top:12px">Our two showcase reels, played right here — a science lesson and a broadcast commercial, both narrated in English with live Yorùbá subtitles. Every slot is editable: open one to load your own video, or add a brand-new demo.</p>
+        <p class="sub" style="margin-top:12px">Our two showcase reels, played right here: a science lesson and a broadcast commercial, both narrated in English with live Yorùbá subtitles. Every slot is editable.</p>
       </div>
-      <span class="edit-pill">✏️ Fully editable slots</span>
     </div>
-    <div class="demo-grid" id="demoGrid"></div>
+    <div class="demo-list" id="demoGrid"></div>
+    <button class="demo-add" id="addDemoBtn">+ Add your demo<br><small style="font-weight:400;color:var(--muted);font-size:.85rem">Easily editable — saved in this browser</small></button>
   </div>
 </section>
 
 <!-- ══════════ TRANSCRIPTION BENCH (upload) ══════════ -->
-<section class="sec" id="transcribe" style="padding-top:20px">
+<section class="sec" id="transcribe" style="padding-top:0">
   <div class="wrap">
     <div class="bench reveal">
       <div class="bench-grid">
         <div>
-          <span class="eyebrow" style="background:rgba(255,255,255,.14);color:#FFD9BC"><span class="quad"><i></i><i></i><i></i><i></i></span> Transcription bench</span>
+          <span class="eyebrow">Transcription bench</span>
           <h2>Upload audio. Get the words, in your language.</h2>
           <ul class="bench-points">
-            <li><span class="tick">✓</span> Drop in a recording — any classical source we support.</li>
-            <li><span class="tick">✓</span> We transcribe it, then render text &amp; speech in the African language you choose.</li>
-            <li><span class="tick">✓</span> Export clean .txt transcripts with timestamps.</li>
-            <li><span class="tick">✓</span> This sandbox runs on sample corpora; production uses our full ASR + MT engine.</li>
-            <li><span class="tick">✓</span> Uploaded audio is processed only for your request — see our Privacy Policy.</li>
+            <li>Drop in a recording of any classical source we support.</li>
+            <li>We transcribe it, then render text and speech in the African language you choose.</li>
+            <li>Export clean .txt transcripts with timestamps.</li>
+            <li>This sandbox runs on sample corpora; production uses our full ASR + MT engine.</li>
+            <li>Uploaded audio is processed only for your request (see our Privacy Policy).</li>
           </ul>
         </div>
         <div class="bench-card">
           <div class="drop" id="drop" role="button" tabindex="0" aria-label="Upload audio file">
-            <div class="up-ico"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0 5 5m-5-5-5 5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></div>
-            <b>Drag &amp; drop audio here</b><br>
-            <small>or <span class="browse">browse files</span> · MP3, WAV, M4A, FLAC, OGG · up to 200 MB</small>
+            <b>Drag and drop audio here</b>
+            <small>or browse files · MP3, WAV, M4A, FLAC, OGG · up to 200 MB</small>
           </div>
-          <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg" hidden>
-          <div class="file-chip" id="fileChip"><span>🎵</span><span id="chipName"></span><small id="chipSize"></small><button class="fx" id="fileClear" aria-label="Remove file">✕</button></div>
+          <input type="file" id="fileInput" accept="audio/*,.mp3,.wav,.m4a,.flac,.ogg" hidden="">
+          <div class="file-chip" id="fileChip" style="display:none;align-items:center;gap:12px;border:1px solid var(--border);padding:12px;margin-top:16px">
+            <span id="chipName"></span>
+            <small id="chipSize" style="color:var(--muted)"></small>
+            <button class="btn btn-sm" id="fileClear" style="margin-left:auto;border:1px solid var(--accent);background:transparent;color:var(--accent);padding:4px 8px">Remove</button>
+          </div>
           <div class="hint" id="benchHint"></div>
           <div class="bench-row">
             <div><label for="srcSel">Classical source</label><select id="srcSel"></select></div>
@@ -585,17 +564,17 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
           <div class="wave" id="waveBox" aria-hidden="true"></div>
           <div class="prog-wrap" id="progWrap"><div class="prog"><div class="prog-fill" id="progFill"></div></div><span id="stepLabel">Warming up…</span></div>
           <div class="bench-actions">
-            <button class="btn btn-o" id="runBtn">⚡ Transcribe &amp; translate</button>
-            <button class="btn btn-ghost btn-sm" id="sampleBtn">Use sample recording</button>
+            <button class="btn btn-primary" id="runBtn">Transcribe and translate</button>
+            <button class="btn btn-sm" id="sampleBtn">Use sample recording</button>
           </div>
           <div class="results" id="results">
             <div class="res res-src"><h5 id="resSrcLabel">Classical source</h5><div id="resSrcText"></div></div>
-            <div class="res res-tgt"><h5 id="resTgtLabel">Translation</h5><div id="resTgtText"></div></div>
+            <div class="res res-tgt" style="border-top:1px solid var(--border);padding-top:16px;margin-top:16px"><h5 id="resTgtLabel">Translation</h5><div id="resTgtText"></div></div>
             <div class="res-meta" id="resMeta"></div>
             <div class="res-actions">
-              <button class="btn btn-g btn-sm" id="dlBtn">⬇ Download .txt</button>
-              <button class="btn btn-ghost btn-sm" id="copyBtn">⧉ Copy translation</button>
-              <button class="btn btn-ghost btn-sm" id="resetBtn">↺ New run</button>
+              <button class="btn btn-sm" id="dlBtn">Download .txt</button>
+              <button class="btn btn-sm" id="copyBtn">Copy translation</button>
+              <button class="btn btn-sm" id="resetBtn">New run</button>
             </div>
           </div>
         </div>
@@ -605,28 +584,27 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 </section>
 
 <!-- ══════════ EDUCATION ══════════ -->
-<section class="sec" id="education">
+<section class="sec" id="education" style="padding-top:0">
   <div class="wrap edu-grid">
     <div class="reveal">
-      <span class="eyebrow ey-p"><span class="quad"><i></i><i></i><i></i><i></i></span> Education initiatives</span>
+      <span class="eyebrow">Education initiatives</span>
       <h2>Classics for every classroom.</h2>
-      <p class="sub" style="margin-top:16px">We partner with ministries of education and universities to bring classical texts into African classrooms in learners' own languages — free for public schools, forever.</p>
+      <p class="sub" style="margin-top:16px">We partner with ministries of education and universities to bring classical texts into African classrooms in learners' own languages. Free for public schools, forever.</p>
       <div class="edu-list">
-        <div class="edu-item"><div class="eico i-o">📚</div><div><h3>Classroom Kits</h3><p>Lesson plans, audio dramas and worksheets aligned to national curricula, in 12 languages.</p></div></div>
-        <div class="edu-item"><div class="eico i-g">🌐</div><div><h3>Open Corpus Africa</h3><p>5,800+ hours of aligned classical ↔ African speech, free for researchers and students.</p></div></div>
-        <div class="edu-item"><div class="eico i-p">🤝</div><div><h3>Scholar Fellowships</h3><p>Paid training for linguists and classicists — 60% fellows are women, 14 countries.</p></div></div>
+        <div class="edu-item"><h3>Classroom Kits</h3><p>Lesson plans, audio dramas, and worksheets aligned to national curricula, in 12 languages.</p></div>
+        <div class="edu-item"><h3>Open Corpus Africa</h3><p>5,800+ hours of aligned classical ↔ African speech, free for researchers and students.</p></div>
+        <div class="edu-item"><h3>Scholar Fellowships</h3><p>Paid training for linguists and classicists. 60% fellows are women, across 14 countries.</p></div>
       </div>
-      <a class="btn btn-g" href="#contact">Request the classroom kit</a>
+      <a class="btn btn-primary" href="#contact" style="margin-top:32px">Request the classroom kit</a>
     </div>
     <div class="edu-art reveal">
-      <div class="stamp">210 partner schools</div>
-      <div class="frame"><img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1d6ac4fd9-0005-458e-9078-467da8c29b0f.png" alt="Joyful African schoolchildren raising hands in a bright classroom"></div>
+      <img src="https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1d6ac4fd9-0005-458e-9078-467da8c29b0f.png" alt="Joyful African schoolchildren raising hands in a bright classroom">
     </div>
   </div>
 </section>
 
 <!-- ══════════ IMPACT ══════════ -->
-<section class="sec" style="padding-top:0">
+<section class="sec" style="padding:0">
   <div class="wrap">
     <div class="impact reveal">
       <div class="imp"><span class="count" data-to="5800" data-suffix="+">0</span><small>hours transcribed</small></div>
@@ -638,14 +616,14 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 </section>
 
 <!-- ══════════ CTA ══════════ -->
-<section class="sec" style="padding-top:0">
+<section class="sec" style="padding:80px 0">
   <div class="wrap">
     <div class="cta-panel reveal">
       <h2>Bring a classical voice to your community.</h2>
-      <p>Whether it's one archive reel or a national curriculum, we'll get the words where they need to go — in the language people live in.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-o" href="#transcribe">Start transcribing</a>
-        <a class="btn btn-g" href="mailto:partners@babalang.org">Partner with us</a>
+      <p>Whether it is one archive reel or a national curriculum, we will get the words where they need to go, in the language people live in.</p>
+      <div class="hero-ctas" style="justify-content:center">
+        <a class="btn btn-primary" href="#transcribe">Start transcribing</a>
+        <a class="btn" href="mailto:partners@babalang.org">Partner with us</a>
       </div>
     </div>
   </div>
@@ -656,30 +634,30 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
 <footer id="contact">
   <div class="wrap">
     <form class="nl" id="nlForm">
-      <h3>📬 Field notes, monthly.</h3>
-      <input type="email" id="nlInput" placeholder="you@school.ac.ke" required aria-label="Email address">
-      <button class="btn btn-o btn-sm" type="submit">Subscribe</button>
+      <h3>Field notes, monthly.</h3>
+      <input type="email" id="nlInput" placeholder="you@school.ac.ke" required="" aria-label="Email address">
+      <button class="btn btn-primary btn-sm" type="submit">Subscribe</button>
     </form>
     <div class="foot-grid">
       <div class="foot-brand">
-        <a class="logo" href="#home"><svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><circle cx="35" cy="35" r="26" fill="#F2762E"/><circle cx="65" cy="35" r="26" fill="#57B14A" opacity=".92"/><circle cx="35" cy="65" r="26" fill="#1B3A6E" opacity=".92"/><circle cx="65" cy="65" r="26" fill="#6B4AA8" opacity=".92"/></svg><span class="lt">Lingui<b style="color:var(--orange)">frica</b></span></a>
-        <p>Classical speech, African futures. A social enterprise at the intersection of language technology, heritage and access.</p>
+        <a class="logo" href="#home" style="color:var(--bg)">babalang</a>
+        <p>Classical speech, African futures. A social enterprise at the intersection of language technology, heritage, and access.</p>
       </div>
       <div><h4>Explore</h4><a href="#about">About</a><a href="#services">Services</a><a href="#languages">Languages</a><a href="#demos">Demos</a></div>
       <div><h4>Services</h4><a href="#transcribe">Speech-to-Text</a><a href="#languages">Living Translation</a><a href="#about">Access Services</a><a href="#education">Education</a></div>
       <div><h4>Contact</h4><a href="mailto:hello@babalang.org">hello@babalang.org</a><a href="tel:+254700000000">+254 700 000 000</a><a href="#home">Nairobi · Accra · Cape Town</a></div>
     </div>
     <div class="foot-bottom">
-      <span>© <span id="year"></span> babalang — classical speech, African futures.</span>
-      <span>Made with <span style="color:var(--orange)">♥</span> for languages · <button class="legal-link" data-legal="privacyModal">Privacy Policy</button> · <button class="legal-link" data-legal="termsModal">Terms of Service</button></span>
+      <span>© <span id="year">2026</span> babalang — classical speech, African futures.</span>
+      <span>Made with care for languages · <button class="legal-link" data-legal="privacyModal">Privacy Policy</button> · <button class="legal-link" data-legal="termsModal">Terms of Service</button></span>
     </div>
   </div>
 </footer>
 
-<!-- ══════════ DEMO MODAL ══════════ -->
+<!-- ══════════ MODALS ══════════ -->
 <div class="modal-backdrop" id="demoModal" role="dialog" aria-modal="true" aria-label="Demo presentation">
   <div class="modal-card">
-    <button class="modal-x" data-close aria-label="Close">✕</button>
+    <button class="modal-x" data-close="" aria-label="Close">Close</button>
     <div class="mtagrow"><span class="mtag" id="dmTag"></span><span class="mdur" id="dmDur"></span></div>
     <h3 id="dmTitle"></h3>
     <p class="mdesc" id="dmDesc"></p>
@@ -688,12 +666,11 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
   </div>
 </div>
 
-<!-- ══════════ ADD-DEMO MODAL ══════════ -->
 <div class="modal-backdrop" id="addModal" role="dialog" aria-modal="true" aria-label="Add a demo">
   <div class="modal-card">
-    <button class="modal-x" data-close aria-label="Close">✕</button>
+    <button class="modal-x" data-close="" aria-label="Close">Close</button>
     <h3>Add a demo presentation</h3>
-    <p class="mdesc">It appears instantly in the grid and is saved in this browser. Leave media empty to keep a placeholder.</p>
+    <p class="mdesc">It appears instantly in the list and is saved in this browser. Leave media empty to keep a placeholder.</p>
     <form id="addForm">
       <div class="form-grid">
         <div class="full"><label for="adTitle">Title *</label><input id="adTitle" placeholder="e.g. Coptic hymns in Luganda"></div>
@@ -703,217 +680,116 @@ footer{background:var(--blue-900);color:var(--cream);border-radius:var(--r-xl) v
         <div class="full"><label for="adMedia">Media URL (YouTube / Vimeo / MP4)</label><input id="adMedia" placeholder="https://…"></div>
       </div>
       <div class="form-err" id="formErr">Please give your demo a title.</div>
-      <div style="margin-top:20px"><button class="btn btn-g" type="submit">＋ Add demo</button></div>
+      <div style="margin-top:24px"><button class="btn btn-primary" type="submit">Add demo</button></div>
     </form>
   </div>
 </div>
 
-<!-- ══════════ PRIVACY POLICY MODAL ══════════ -->
 <div class="modal-backdrop" id="privacyModal" role="dialog" aria-modal="true" aria-label="Privacy Policy">
   <div class="modal-card legal">
-    <button class="modal-x" data-close aria-label="Close">✕</button>
+    <button class="modal-x" data-close="" aria-label="Close">Close</button>
     <span class="legal-updated">Last updated: 18 August 2026</span>
     <h3>Privacy Policy</h3>
-    <p class="mdesc">How babalang collects, uses and protects your information when you use our speech-to-text, translation and education services.</p>
+    <p class="mdesc">How babalang collects, uses, and protects your information.</p>
     <div class="legal-content">
-      <h4>1. Who we are</h4>
-      <p>babalang (“we”, “us”, “our”) provides transcription of speech in classical languages and translation into African languages, together with access services and education initiatives. Our offices are in Nairobi, Accra and Cape Town. For any privacy question, contact <b>privacy@babalang.org</b>.</p>
-      <h4>2. Information we collect</h4>
-      <ul>
-        <li><b>Audio you upload.</b> Recordings you submit through our transcription bench or deliver to us as a partner, together with the language pairs you select and the transcripts and translations we generate from them.</li>
-        <li><b>Contact details.</b> Name, email address, organisation and message content when you write to us, request a classroom kit or subscribe to our newsletter.</li>
-        <li><b>Account information</b> (where you create one): name, email, password hash and institutional affiliation.</li>
-        <li><b>Usage data.</b> Pages visited, features used, device and browser type, approximate location derived from IP address, and error logs.</li>
-        <li><b>Locally stored preferences.</b> Demo presentations you add on this site are stored only in your own browser (localStorage) and are never transmitted to us.</li>
-      </ul>
-      <h4>3. How we use your information</h4>
-      <ul>
-        <li>To process your audio into transcripts and translations and deliver the outputs you request.</li>
-        <li>To operate, maintain and improve our speech-recognition and translation models.</li>
-        <li>To respond to enquiries, provide support and manage partnerships and education programmes.</li>
-        <li>To send the newsletter you subscribed to (you can unsubscribe at any time).</li>
-        <li>To meet legal obligations and protect the security and integrity of the service.</li>
-      </ul>
-      <h4>4. Your audio and consent</h4>
-      <p>By uploading audio, you confirm that you have the right to submit it — including, where required, the consent of the speakers recorded. We do not use your uploaded audio to train models unless you explicitly opt in to the <b>Open Corpus Africa</b> contribution programme, in which case recordings are pseudonymised and released under a clearly stated open licence. You may withdraw consent at any time.</p>
-      <h4>5. Sharing</h4>
-      <p>We never sell personal data. We share information only with:</p>
-      <ul>
-        <li>Service providers who process data on our instructions under contract (hosting, storage, analytics);</li>
-        <li>Partner institutions, where you have asked us to deliver outputs to them;</li>
-        <li>Authorities, where required by law.</li>
-      </ul>
-      <h4>6. Retention &amp; deletion</h4>
-      <p>Uploaded audio is retained for <b>30 days</b> to support quality review and redelivery, then permanently deleted, unless you ask for earlier deletion or agree to longer retention as part of a project. Transcripts and translations are retained in your workspace for as long as your account or project is active. Newsletter data is kept until you unsubscribe.</p>
-      <h4>7. Security</h4>
-      <p>We use encryption in transit (TLS) and at rest, access controls, audit logging and least-privilege access for staff. No method of transmission is 100% secure, but we take reasonable and appropriate measures for the sensitivity of linguistic and heritage data.</p>
-      <h4>8. Your rights</h4>
-      <p>Depending on your jurisdiction (including the Kenyan Data Protection Act, the South African POPIA and the GDPR), you may have the right to <b>access, correct, export, restrict or delete</b> your personal data, and to object to certain processing. Submit requests to <b>privacy@babalang.org</b>; we respond within 30 days.</p>
-      <h4>9. Cookies &amp; local storage</h4>
-      <p>We use strictly necessary storage to keep the site working (for example, remembering demos you have added in your browser). We do not use third-party advertising trackers.</p>
-      <h4>10. Children's privacy</h4>
-      <p>Our education programmes may involve learners under 18. Where they do, we collect personal data only with verifiable school and guardian consent, minimise what we collect, and never use learner data for profiling or marketing.</p>
-      <h4>11. International transfers</h4>
-      <p>Data may be processed in the countries where we operate and in the locations of our contracted processors. Where data crosses borders, we rely on appropriate safeguards such as standard contractual clauses or equivalent mechanisms.</p>
-      <h4>12. Changes to this policy</h4>
-      <p>We may update this policy from time to time. Material changes will be announced on this page with a new “last updated” date before they take effect.</p>
+      <h4>1. Who we are</h4><p>babalang (“we”, “us”, “our”) provides transcription of speech in classical languages and translation into African languages. For any privacy question, contact <b>privacy@babalang.org</b>.</p>
+      <h4>2. Information we collect</h4><ul><li><b>Audio you upload.</b> Recordings you submit, the language pairs you select, and the transcripts we generate.</li><li><b>Contact details.</b> Name, email, organisation, and message content.</li><li><b>Usage data.</b> Pages visited, features used, device type, and error logs.</li><li><b>Locally stored preferences.</b> Demo presentations you add on this site are stored only in your browser.</li></ul>
+      <h4>3. How we use your information</h4><ul><li>To process your audio into transcripts and deliver outputs.</li><li>To operate and improve our models.</li><li>To respond to enquiries and manage partnerships.</li><li>To send the newsletter you subscribed to (opt-out anytime).</li></ul>
+      <h4>4. Your audio and consent</h4><p>By uploading audio, you confirm you have the right to submit it. We do not use your audio to train models unless you opt in. You may withdraw consent at any time.</p>
+      <h4>5. Sharing</h4><p>We never sell personal data. We share information only with service providers, partner institutions (at your request), and authorities (where required by law).</p>
+      <h4>6. Retention & Deletion</h4><p>Uploaded audio is retained for <b>30 days</b>, then permanently deleted unless longer retention is agreed. Transcripts are kept in your workspace.</p>
+      <h4>7. Security</h4><p>We use encryption in transit and at rest, access controls, and audit logging.</p>
+      <h4>8. Your rights</h4><p>You may have the right to access, correct, export, restrict, or delete your personal data. Submit requests to <b>privacy@babalang.org</b>.</p>
+      <h4>9. Cookies & Local Storage</h4><p>We use strictly necessary storage to keep the site working. No third-party advertising trackers.</p>
+      <h4>10. Children's Privacy</h4><p>For learners under 18, we collect data only with verifiable school and guardian consent.</p>
+      <h4>11. International Transfers</h4><p>Data may be processed in our operating countries with appropriate safeguards.</p>
+      <h4>12. Changes</h4><p>We may update this policy with a new “last updated” date.</p>
     </div>
   </div>
 </div>
 
-<!-- ══════════ TERMS OF SERVICE MODAL ══════════ -->
 <div class="modal-backdrop" id="termsModal" role="dialog" aria-modal="true" aria-label="Terms of Service">
   <div class="modal-card legal">
-    <button class="modal-x" data-close aria-label="Close">✕</button>
+    <button class="modal-x" data-close="" aria-label="Close">Close</button>
     <span class="legal-updated">Last updated: 18 August 2026</span>
     <h3>Terms of Service</h3>
-    <p class="mdesc">The terms under which babalang provides speech-to-text, translation, access and education services.</p>
+    <p class="mdesc">The terms under which babalang provides its services.</p>
     <div class="legal-content">
-      <h4>1. Agreement</h4>
-      <p>By accessing babalang.org or using any babalang service, you agree to these Terms of Service and to our Privacy Policy. If you use the service on behalf of an organisation, you confirm you are authorised to bind it.</p>
-      <h4>2. The service</h4>
-      <p>babalang provides (a) speech-to-text transcription of classical-language audio; (b) translation of transcripts into African languages, in text and audio form; (c) interpretation and access support for institutions; and (d) free education programmes, classroom kits and open corpora. Features and supported languages may change as the service evolves.</p>
-      <h4>3. Demo sandbox disclaimer</h4>
-      <p>The interactive phrasebook and the on-site transcription bench are <b>demonstrations running on sample corpora</b>. Outputs shown there are illustrative and must not be relied upon for legal, medical, academic or other professional purposes. Production projects are delivered through our full pipeline with scholarly review.</p>
-      <h4>4. Eligibility &amp; accounts</h4>
-      <p>You must be at least 18 years old to create an account or enter into paid engagements. You are responsible for keeping your account credentials secure and for activity under your account. Use of education features by minors is governed by their schools under Section 10 of the Privacy Policy.</p>
-      <h4>5. Your content</h4>
-      <p>You retain all rights to the audio and materials you submit. By submitting them you grant us a limited, non-exclusive licence to process, transcribe, translate and store them solely to provide the service you requested. You represent and warrant that you have all necessary rights and consents to submit the content, including the consent of any recorded speakers.</p>
-      <h4>6. Acceptable use</h4>
-      <p>You agree not to use the service to: violate any law or third-party right; upload content you do not have rights to; attempt to extract, copy or reverse-engineer our models or software; interfere with the operation of the service; or circumvent usage limits. We may suspend access where these rules are breached.</p>
-      <h4>7. Intellectual property</h4>
-      <p>The babalang name, logo, website, software, models and documentation are owned by us or our licensors and may not be copied or reused without written permission, except for education materials we explicitly release under open licences. Outputs generated from your content belong to you.</p>
-      <h4>8. Accuracy &amp; scholarly review</h4>
-      <p>Classical languages are contested and context-dependent. While our work is reviewed by scholars and native-speaker linguists, transcription and translation are provided <b>“as is”</b> and may contain errors. For critical use — legal proceedings, publication, religious practice — request our certified review service.</p>
-      <h4>9. Education programmes</h4>
-      <p>Classroom kits and Open Corpus Africa materials are free for educational use under their stated licences. They may not be resold. Fellowship applications are assessed on published criteria; decisions are final.</p>
-      <h4>10. Fees</h4>
-      <p>Education and community-access services are free. Institutional services are quoted per project. Fees, where applicable, are payable within 30 days of invoice. Free services may be subject to fair-use limits.</p>
-      <h4>11. Third-party services</h4>
-      <p>Demos and outputs may link to or embed third-party content (for example, video hosting). Third-party terms apply to those services, and we are not responsible for their availability or content.</p>
-      <h4>12. Termination</h4>
-      <p>You may stop using the service and request deletion of your data at any time. We may suspend or terminate access for breach of these Terms, with notice where practicable. Sections concerning ownership, liability and disputes survive termination.</p>
-      <h4>13. Disclaimer of warranties &amp; limitation of liability</h4>
-      <p>To the maximum extent permitted by law, the service is provided without warranties of any kind, express or implied. To the extent permitted by law, babalang's aggregate liability arising out of the service shall not exceed the fees you paid to us in the twelve months preceding the claim. Nothing in these Terms excludes liability that cannot be excluded by law.</p>
-      <h4>14. Governing law &amp; disputes</h4>
-      <p>These Terms are governed by the laws of the <b>Republic of Kenya</b>. Disputes shall first be raised in good faith via <b>legal@babalang.org</b>; if unresolved within 30 days, they are subject to the exclusive jurisdiction of the courts of Nairobi, Kenya, unless a mandatory consumer law of your country provides otherwise.</p>
-      <h4>15. Changes to these Terms</h4>
-      <p>We may revise these Terms from time to time. Continued use of the service after changes take effect constitutes acceptance of the updated Terms. The “last updated” date above reflects the current version.</p>
+      <h4>1. Agreement</h4><p>By accessing babalang.org or using any service, you agree to these Terms and our Privacy Policy.</p>
+      <h4>2. The Service</h4><p>babalang provides speech-to-text transcription, translation into African languages, interpretation access, and free education programmes.</p>
+      <h4>3. Sandbox Disclaimer</h4><p>The interactive phrasebook and on-site bench are <b>demonstrations on sample corpora</b>. Outputs are illustrative. Production projects use our full scholarly pipeline.</p>
+      <h4>4. Eligibility & Accounts</h4><p>You must be 18 to create an account. You are responsible for your credentials.</p>
+      <h4>5. Your Content</h4><p>You retain all rights to submitted audio. You grant us a limited license to process it solely to provide the requested service.</p>
+      <h4>6. Acceptable Use</h4><p>You agree not to violate laws, upload unauthorized content, reverse-engineer our models, or interfere with the service.</p>
+      <h4>7. Intellectual Property</h4><p>The babalang name, software, and models are owned by us. Outputs generated from your content belong to you.</p>
+      <h4>8. Accuracy</h4><p>Transcription and translation are provided <b>“as is”</b>. For critical use, request our certified review service.</p>
+      <h4>9. Education Programmes</h4><p>Classroom kits are free for educational use under stated licenses and may not be resold.</p>
+      <h4>10. Fees</h4><p>Education and community-access services are free. Institutional services are quoted per project.</p>
+      <h4>11. Third-Party Services</h4><p>Demos may embed third-party content; their terms apply.</p>
+      <h4>12. Termination</h4><p>You may stop using the service and request data deletion. We may suspend access for breaches.</p>
+      <h4>13. Liability</h4><p>The service is provided without warranties. Our aggregate liability shall not exceed the fees paid in the preceding twelve months.</p>
+      <h4>14. Governing Law</h4><p>These Terms are governed by the laws of the <b>Republic of Kenya</b>. Disputes are subject to Nairobi courts.</p>
+      <h4>15. Changes</h4><p>We may revise these Terms. Continued use constitutes acceptance.</p>
     </div>
   </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-/* ───────── basics ───────── */
 document.getElementById('year').textContent = new Date().getFullYear();
 var burger=document.getElementById('burger'), mMenu=document.getElementById('mobileMenu');
 burger.addEventListener('click',function(){mMenu.classList.toggle('open');});
 mMenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mMenu.classList.remove('open');});});
 
-var mq=document.getElementById('mqTrack'); mq.innerHTML += mq.innerHTML;
-
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 
 function animCount(el){var to=+el.dataset.to,t0=performance.now();(function tick(t){var p=Math.min(1,(t-t0)/1500),e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e).toLocaleString('en')+(el.dataset.suffix||'');if(p<1)requestAnimationFrame(tick);})(t0);}
 var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){animCount(e.target);cio.unobserve(e.target);}});},{threshold:.5});
 document.querySelectorAll('.count').forEach(function(el){cio.observe(el);});
 
-/* ───────── PHRASEBOOK ───────── */
-var PHRASES={
- latin:{name:'Latin',dir:'ltr',text:'Scientia est lux.',gloss:'“Knowledge is light.” — proverb of the schools'},
- greek:{name:'Ancient Greek',dir:'ltr',text:'Γνῶθι σεαυτόν.',gloss:'“Know thyself.” — Delphic maxim'},
- sanskrit:{name:'Sanskrit',dir:'ltr',text:'सत्यमेव जयते।',gloss:'“Truth alone triumphs.” — Muṇaka Upaniad'},
- arabic:{name:'Classical Arabic',dir:'rtl',text:'العِلْمُ نورٌ.',gloss:'“Knowledge is light.” — classical saying'},
- hebrew:{name:'Biblical Hebrew',dir:'rtl',text:'חָכְמָה מֵאַין תִּמָּצֵא',gloss:'“Where can wisdom be found?” — Job 28:12'},
- geez:{name:'Geʽez',dir:'ltr',text:'ጥበብ ብርሃን ናት።',gloss:'“Wisdom is light.” — Ethiopic maxim'}
-};
+/* PHRASEBOOK */
+var PHRASES={latin:{name:'Latin',dir:'ltr',text:'Scientia est lux.',gloss:'"Knowledge is light." — proverb of the schools'},greek:{name:'Ancient Greek',dir:'ltr',text:'Γνῶθι σεαυτόν.',gloss:'"Know thyself." — Delphic maxim'},sanskrit:{name:'Sanskrit',dir:'ltr',text:'सत्यमेव जयते।',gloss:'"Truth alone triumphs." — Muṇaka Upaniad'},arabic:{name:'Classical Arabic',dir:'rtl',text:'العِلْمُ نورٌ.',gloss:'"Knowledge is light." — classical saying'},hebrew:{name:'Biblical Hebrew',dir:'rtl',text:'חָכְמָה מֵאַין תִּמָּצֵא',gloss:'"Where can wisdom be found?" — Job 28:12'},geez:{name:'Geʽez',dir:'ltr',text:'ጥበብ ብርሃን ናት።',gloss:'"Wisdom is light." — Ethiopic maxim'}};
 var TARGETS={sw:'Kiswahili',yo:'Yorùbá',zu:'isiZulu',ha:'Hausa',am:'Amharic',ig:'Igbo',wo:'Wolof',so:'Af-Soomaali',tw:'Twi',sn:'chiShona'};
-var TR={
- latin:{sw:'Elimu ni mwanga.',yo:'Ìmọ̀ ni ìmọ́lẹ̀.',zu:'Ulwazi ukukhanya.',ha:'Ilimi haske ne.',am:'እውቀት ብርሃን ነው።',ig:'Ihe ọmụma bụ ìhè.',wo:'Xam-xam leer la.',so:'Aqoontu waa iftiin.',tw:'Nimdeɛ yɛ hann.',sn:'Ruzivo mwenje.'},
- greek:{sw:'Jitambue mwenyewe.',yo:'Mọ ara rẹ.',zu:'Zazi wena uqobo.',ha:'Ka san kanka.',am:'ራስህን ውቀር',ig:'Mata onwe gị.',wo:'Xam sa bopp.',so:'Is-garo naftaada.',tw:'Hunuu wo ho.',sn:'Zvizive iwe.'},
- sanskrit:{sw:'Kweli peke yake hushinda.',yo:'Òótọ́ nìkan ló ń ṣẹ́gun.',zu:'Iqiniso lodwa liyanqoba.',ha:'Gaskiya kaɗai ke cin nasara.',am:'እውነት ብቻ ሸንፋለች።',ig:'Naanị eziokwu na-emeri.',wo:'Dëgg rekk a yey.',so:'Runtu oo keliya ayaa guuleysata.',tw:'Nokorɛ nko na ɛdi nkonim.',sn:'Chokwadi chega ndicho chinokunda.'},
- arabic:{sw:'Elimu ni mwanga.',yo:'Ìmọ̀ ni ìmọ́lẹ̀.',zu:'Ulwazi ukukhanya.',ha:'Ilimi haske ne.',am:'እውቀት ብርሃን ነው።',ig:'Ihe ọmụma bụ ìhè.',wo:'Xam-xam leer la.',so:'Aqoontu waa iftiin.',tw:'Nimdeɛ yɛ hann.',sn:'Ruzivo mwenje.'},
- hebrew:{sw:'Hekima hupatikana wapi?',yo:'Níbo ni a ti ń rí ọgbọ́n?',zu:'Ukuhlakanipha kutholakala kuphi?',ha:'A ina ake samun hikima?',am:'ጥበብ የት ትገኛለች?',ig:'Ebee ka amamihe dị?',wo:'Fan la xel nekk?',so:'Xaggee xikmad laga helaa?',tw:'Ɛhe na nyansa wɔ?',sn:'Uchenjeri hunowanikwa kupi?'},
- geez:{sw:'Hekima ni mwanga.',yo:'Ọgbọ́n ni ìmọ́lẹ̀.',zu:'Ukuhlakanipha ukukhanya.',ha:'Hikima haske ce.',am:'ጥበብ ብርሃን ናት።',ig:'Amamihe bụ ìhè.',wo:'Xel leer la.',so:'Xikmadu waa iftiin.',tw:'Nyansa yɛ hann.',sn:'Uchenjeri mwenje.'}
-};
+var TR={latin:{sw:'Elimu ni mwanga.',yo:'Ìmọ̀ ni ìmọ́lẹ̀.',zu:'Ulwazi ukukhanya.',ha:'Ilimi haske ne.',am:'እውቀት ብርሃን ነው።',ig:'Ihe ọmụma bụ ìhè.',wo:'Xam-xam leer la.',so:'Aqoontu waa iftiin.',tw:'Nimdeɛ yɛ hann.',sn:'Ruzivo mwenje.'},greek:{sw:'Jitambue mwenyewe.',yo:'Mọ ara rẹ.',zu:'Zazi wena uqobo.',ha:'Ka san kanka.',am:'ራስህን ውቀር',ig:'Mata onwe gị.',wo:'Xam sa bopp.',so:'Is-garo naftaada.',tw:'Hunuu wo ho.',sn:'Zvizive iwe.'},sanskrit:{sw:'Kweli peke yake hushinda.',yo:'Òótọ́ nìkan ló ń ṣẹ́gun.',zu:'Iqiniso lodwa liyanqoba.',ha:'Gaskiya kaɗai ke cin nasara.',am:'እውነት ብቻ ሸንፋለች።',ig:'Naanị eziokwu na-emeri.',wo:'Dëgg rekk a yey.',so:'Runtu oo keliya ayaa guuleysata.',tw:'Nokorɛ nko na ɛdi nkonim.',sn:'Chokwadi chega ndicho chinokunda.'},arabic:{sw:'Elimu ni mwanga.',yo:'Ìmọ̀ ni ìmọ́lẹ̀.',zu:'Ulwazi ukukhanya.',ha:'Ilimi haske ne.',am:'እውቀት ብርሃን ነው።',ig:'Ihe ọmụma bụ ìhè.',wo:'Xam-xam leer la.',so:'Aqoontu waa iftiin.',tw:'Nimdeɛ yɛ hann.',sn:'Ruzivo mwenje.'},hebrew:{sw:'Hekima hupatikana wapi?',yo:'Níbo ni a ti ń rí ọgbọ́n?',zu:'Ukuhlakanipha kutholakala kuphi?',ha:'A ina ake samun hikima?',am:'ጥበብ የት ትገኛለች?',ig:'Ebee ka amamihe dị?',wo:'Fan la xel nekk?',so:'Xaggee xikmad laga helaa?',tw:'Ɛhe na nyansa wɔ?',sn:'Uchenjeri hunowanikwa kupi?'},geez:{sw:'Hekima ni mwanga.',yo:'Ọgbọ́n ni ìmọ́lẹ̀.',zu:'Ukuhlakanipha ukukhanya.',ha:'Hikima haske ce.',am:'ጥበብ ብርሃን ናት።',ig:'Amamihe bụ ìhè.',wo:'Xel leer la.',so:'Xikmadu waa iftiin.',tw:'Nyansa yɛ hann.',sn:'Uchenjeri mwenje.'}};
 var curSrc='latin', curTgt='sw';
 var tabsBox=document.getElementById('srcTabs'), chipsBox=document.getElementById('tgtChips');
-Object.keys(PHRASES).forEach(function(k){var b=document.createElement('button');b.className='tab'+(k===curSrc?' active':'');b.dataset.src=k;b.textContent=PHRASES[k].name;tabsBox.appendChild(b);});
 Object.keys(TARGETS).forEach(function(k){var b=document.createElement('button');b.className='tchip'+(k===curTgt?' active':'');b.dataset.tgt=k;b.textContent=TARGETS[k];chipsBox.appendChild(b);});
 function renderPhrase(){var p=PHRASES[curSrc];var el=document.getElementById('srcPhrase');el.dir=p.dir;el.textContent=p.text;document.getElementById('srcGloss').textContent=p.gloss;renderTgt();}
-function renderTgt(){var out=document.getElementById('tgtOut');out.textContent=TR[curSrc][curTgt];out.classList.remove('pop');void out.offsetWidth;out.classList.add('pop');}
+function renderTgt(){var out=document.getElementById('tgtOut');out.textContent=TR[curSrc][curTgt];}
 tabsBox.addEventListener('click',function(e){var t=e.target.closest('.tab');if(!t)return;tabsBox.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active');});t.classList.add('active');curSrc=t.dataset.src;renderPhrase();});
 chipsBox.addEventListener('click',function(e){var t=e.target.closest('.tchip');if(!t)return;chipsBox.querySelectorAll('.tchip').forEach(function(x){x.classList.remove('active');});t.classList.add('active');curTgt=t.dataset.tgt;renderTgt();});
 renderPhrase();
 
-/* ════════════════════════════════════════════════════════
-   ✏️ EDIT DEMOS HERE — only the two showcase videos you added
-   are kept. Change titles, descriptions, tags, durations,
-   thumbs, or paste a media URL (YouTube / Vimeo / MP4).
-   Demos with `sim` play the built-in simulated showcase player.
-   ════════════════════════════════════════════════════════ */
-var DIG_IMGS=[
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1d774e6ec-d64e-4306-8a1c-0d5689cb40ad.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1931c6e69-eaea-43b6-9458-885602caaa79.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/19c8e62bc-c72e-4f5f-87da-becdbee20ab0.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1c9b2b2a3-0d90-4d1c-b280-966d6a8ef5fe.png'
-];
-var BIS_IMGS=[
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1893df30b-b502-4b77-b229-c6c34a38e0f2.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1db2f230b-e3af-4bcf-9a9a-0f20fec45f69.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1fbdd885c-d256-48bf-9af5-f3d31d10b397.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/10464ddb6-ccf4-4a4c-9523-6d41c15bb974.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/13972b480-0810-4ca7-9e3c-afa357dfb0db.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/10467bfcd-c54c-498d-86ac-37cfcede93d2.png',
- 'https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1c4da212c-f0c3-4328-a017-ae00736d7435.png'
-];
-var DIG_SIM={len:32,scenes:[
- {t:0,img:DIG_IMGS[0],en:"can you believe your digestive system is as long as a bus",yo:"Ṣé o lè gbàgbọ́ pé ètò ìwọ́nún ara rẹ gùn tó bọ́ọ̀sì?"},
- {t:4,img:DIG_IMGS[1],en:"yep it's about nine meters long all wrapped up inside your body",yo:"Bẹ́ẹ̀ ni, ó tó mítà mẹ́sàn-án ní gígùn, tí ó sì po mọ́ra sínú ara rẹ."},
- {t:9,img:DIG_IMGS[2],en:"a lot of things go on in your digestive system not just digestion",yo:"Ọ̀pọ̀lọpọ̀ nǹkan ló ń ṣẹlẹ̀ nínú ètò ìwọ́nún rẹ, kì í ṣe wọ́nún nìkan."},
- {t:15,img:DIG_IMGS[2],extra:'<div class="ovl-list"><b>Digestive System</b><span>• Digestion</span><span>• Absorption</span><span>• Excretion</span></div>',en:"what else do you think happens? digestion goes hand in hand with absorption",yo:"Kí ni o rò pé ó ń ṣẹlẹ̀ nínú rẹ̀ pàápàá? Ìwọ́nún àti ìfàmú oúnjẹ ń jọ rìn pọ̀;"},
- {t:21,img:DIG_IMGS[3],en:"absorption which happens in your small intestine which is what we're going to look at in this video",yo:"ìfàmú yìí máa ń ṣẹlẹ̀ nínú ifun kékeré rẹ, èyí tí a óò dá wo nínú fídíò yìí."},
- {t:26,def:true,en:"digestion is the breakdown of food from large insoluble molecules into small molecules which can be used by your body",yo:"Ìwọ́nún ni ìtúká oúnjẹ láti àwọn mọ́lékùùlù ńlá tí kò lè yọ́, sí àwọn mọ́lékùùlù kékeré tí ara rẹ lè lò."}
-]};
-var BIS_SIM={len:28,scenes:[
- {t:0,img:BIS_IMGS[0],en:"the new Britannia BisCafe — it's not your",yo:"Britannia Bis Cafe tuntun yìí kì í ṣe ago tìí rẹ lásán o."},
- {t:3.5,img:BIS_IMGS[1],en:"regular cup of tea — a coffee cracker",yo:"Britannia Bis Cafe tuntun yìí kì í ṣe ago tìí rẹ lásán o."},
- {t:6.5,img:BIS_IMGS[2],extra:'<span class="ovl-word">THIN</span>',en:"that's so thin, so",yo:"Bísíkìtì tí ń bá kọfí mu ni; ó fẹ́lẹ́fẹ́lẹ́, ó fúyẹ́,"},
- {t:9.5,img:BIS_IMGS[3],extra:'<span class="ovl-word">LIGHT</span>',en:"light, so crisp it simply melts in your",yo:"Bísíkìtì tí ń bá kọfí mu ni; ó fẹ́lẹ́fẹ́lẹ́, ó fúyẹ́,"},
- {t:12.5,img:BIS_IMGS[4],extra:'<span class="ovl-word ovl-right">CRISP</span>',en:"mouth — need something to go with your",yo:"ó sì gbẹ kọ́nkọ́ tó bẹ́ẹ̀ tí ẹnu kàn án ni yóò ti yọ́."},
- {t:16,img:BIS_IMGS[5],en:"coffee? try the new Britannia Bis",yo:"Ṣé o nílò nǹkan tí yóò bá kọfí rẹ mu? Dán Britannia Bis Cafe tuntun yìí wò."},
- {t:20,img:BIS_IMGS[6],extra:'<span class="ovl-final">PERFECT PARTNER<br>TO YOUR FAVOURITE<br>COFFEE</span>',en:"Cafe — the perfect partner to your coffee",yo:"Britannia Bis Cafe — alábàákẹ́gbẹ́ pípé fún kọfí rẹ."}
-]};
-var DEFAULT_DEMOS=[
- {tag:'Education',dur:'0:32',accent:'green',title:'Digestive System — English → Yorùbá',desc:'Our system in action: a science lesson narrated in English with live Yorùbá subtitles — speech-to-text and translation together in the classroom.',thumb:DIG_IMGS[1],sim:DIG_SIM,media:''},
- {tag:'Living Translation',dur:'0:28',accent:'orange',title:'Britannia BisCafe Ad — English → Yorùbá',desc:'A broadcast commercial made local: an English voice-over rendered as natural Yorùbá subtitles for West African audiences.',thumb:BIS_IMGS[0],sim:BIS_SIM,media:''}
-];
-var ACCENTS=['orange','green','purple','blue'];
+/* DEMOS */
+var DIG_IMGS=['https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1d774e6ec-d64e-4306-8a1c-0d5689cb40ad.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1931c6e69-eaea-43b6-9458-885602caaa79.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/19c8e62bc-c72e-4f5f-87da-becdbee20ab0.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1c9b2b2a3-0d90-4d1c-b280-966d6a8ef5fe.png'];
+var BIS_IMGS=['https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1893df30b-b502-4b77-b229-c6c34a38e0f2.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1db2f230b-e3af-4bcf-9a9a-0f20fec45f69.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1fbdd885c-d256-48bf-9af5-f3d31d10b397.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/10464ddb6-ccf4-4a4c-9523-6d41c15bb974.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/13972b480-0810-4ca7-9e3c-afa357dfb0db.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/10467bfcd-c54c-498d-86ac-37cfcede93d2.png','https://image.qwenlm.ai/public_source/7897214b-a183-4ba6-8911-da8ddb2ded92/1c4da212c-f0c3-4328-a017-ae00736d7435.png'];
+var DIG_SIM={len:32,scenes:[{t:0,img:DIG_IMGS[0],en:"can you believe your digestive system is as long as a bus",yo:"Ṣé o lè gbàgbọ́ pé ètò ìwọ́nún ara rẹ gùn tó bọ́ọ̀sì?"},{t:4,img:DIG_IMGS[1],en:"yep it's about nine meters long all wrapped up inside your body",yo:"Bẹ́ẹ̀ ni, ó tó mítà mẹ́sàn-án ní gígùn, tí ó sì po mọ́ra sínú ara rẹ."},{t:9,img:DIG_IMGS[2],en:"a lot of things go on in your digestive system not just digestion",yo:"Ọ̀pọ̀lọpọ̀ nǹkan ló ń ṣẹlẹ̀ nínú ètò ìwọ́nún rẹ, kì í ṣe wọ́nún nìkan."},{t:15,img:DIG_IMGS[2],extra:'<div class="ovl-list"><b>Digestive System</b><span>• Digestion</span><span>• Absorption</span><span>• Excretion</span></div>',en:"what else do you think happens? digestion goes hand in hand with absorption",yo:"Kí ni o rò pé ó ń ṣẹlẹ̀ nínú rẹ̀ pàápàá? Ìwọ́nún àti ìfàmú oúnjẹ ń jọ rìn pọ̀;"},{t:21,img:DIG_IMGS[3],en:"absorption which happens in your small intestine which is what we're going to look at in this video",yo:"ìfàmú yìí máa ń ṣẹlẹ̀ nínú ifun kékeré rẹ, èyí tí a óò dá wo nínú fídíò yìí."},{t:26,def:true,en:"digestion is the breakdown of food from large insoluble molecules into small molecules which can be used by your body",yo:"Ìwọ́nún ni ìtúká oúnjẹ láti àwọn mọ́lékùùlù ńlá tí kò lè yọ́, sí àwọn mọ́lékùùlù kékeré tí ara rẹ lè lò."}]};
+var BIS_SIM={len:28,scenes:[{t:0,img:BIS_IMGS[0],en:"the new Britannia BisCafe — it's not your",yo:"Britannia Bis Cafe tuntun yìí kì í ṣe ago tìí rẹ lásán o."},{t:3.5,img:BIS_IMGS[1],en:"regular cup of tea — a coffee cracker",yo:"Britannia Bis Cafe tuntun yìí kì í ṣe ago tìí rẹ lásán o."},{t:6.5,img:BIS_IMGS[2],extra:'<span class="ovl-word">THIN</span>',en:"that's so thin, so",yo:"Bísíkìtì tí ń bá kọfí mu ni; ó fẹ́lẹ́fẹ́lẹ́, ó fúyẹ́,"},{t:9.5,img:BIS_IMGS[3],extra:'<span class="ovl-word">LIGHT</span>',en:"light, so crisp it simply melts in your",yo:"Bísíkìtì tí ń bá kọfí mu ni; ó fẹ́lẹ́fẹ́lẹ́, ó fúyẹ́,"},{t:12.5,img:BIS_IMGS[4],extra:'<span class="ovl-word ovl-right">CRISP</span>',en:"mouth — need something to go with your",yo:"ó sì gbẹ kọ́nkọ́ tó bẹ́ẹ̀ tí ẹnu kàn án ni yóò ti yọ́."},{t:16,img:BIS_IMGS[5],en:"coffee? try the new Britannia Bis",yo:"Ṣé o nílò nǹkan tí yóò bá kọfí rẹ mu? Dán Britannia Bis Cafe tuntun yìí wò."},{t:20,img:BIS_IMGS[6],extra:'<span class="ovl-final">PERFECT PARTNER<br>TO YOUR FAVOURITE<br>COFFEE</span>',en:"Cafe — the perfect partner to your coffee",yo:"Britannia Bis Cafe — alábàákẹ́gbẹ́ pípé fún kọfí rẹ."}]};
+var DEFAULT_DEMOS=[{tag:'Education',dur:'0:32',title:'Digestive System — English → Yorùbá',desc:'Our system in action: a science lesson narrated in English with live Yorùbá subtitles. Speech-to-text and translation together in the classroom.',thumb:DIG_IMGS[1],sim:DIG_SIM,media:''},{tag:'Living Translation',dur:'0:28',title:'Britannia BisCafe Ad — English → Yorùbá',desc:'A broadcast commercial made local: an English voice-over rendered as natural Yorùbá subtitles for West African audiences.',thumb:BIS_IMGS[0],sim:BIS_SIM,media:''}];
 var custom=[]; try{custom=JSON.parse(localStorage.getItem('lf_custom_demos')||'[]');}catch(e){}
 function allDemos(){return DEFAULT_DEMOS.concat(custom);}
 var grid=document.getElementById('demoGrid');
 function renderDemos(){
   var html=allDemos().map(function(d,i){
-    var thumbHtml=d.thumb?'<img class="thumb-img" src="'+d.thumb+'" alt="">':'<span class="glyph">ᴀʙ</span>';
-    return '<button class="demo-card" data-idx="'+i+'">'+
-      '<div class="demo-thumb ac-'+d.accent+'">'+thumbHtml+'<span class="demo-tag">'+d.tag+'</span>'+
-      '<span class="play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></span>'+
-      '<span class="demo-dur">'+(d.dur||'—')+'</span></div>'+
-      '<div class="demo-body"><h3>'+d.title+'</h3><p>'+d.desc+'</p><span class="demo-open">Open demo →</span></div></button>';
+    return '<div class="demo-item" data-idx="'+i+'">'+
+      '<div class="demo-thumb"><img src="'+d.thumb+'" alt="'+d.title+'"></div>'+
+      '<div class="demo-body">'+
+        '<div class="demo-meta"><span>'+d.tag+'</span><span>'+d.dur+'</span></div>'+
+        '<h3>'+d.title+'</h3><p>'+d.desc+'</p>'+
+        '<a class="demo-open" href="#" data-idx="'+i+'">Open demo</a>'+
+      '</div></div>';
   }).join('');
-  html+='<button class="demo-add" id="addDemoBtn"><span class="plus">＋</span> Add your demo<br><small style="font-weight:500;color:var(--green-600)">easily editable — saved in this browser</small></button>';
   grid.innerHTML=html;
 }
 renderDemos();
 grid.addEventListener('click',function(e){
-  if(e.target.closest('#addDemoBtn')){openModal(addModal);return;}
-  var card=e.target.closest('.demo-card'); if(!card)return;
-  openDemo(+card.dataset.idx);
+  e.preventDefault();
+  var item=e.target.closest('.demo-item'); if(!item)return;
+  openDemo(+item.dataset.idx);
 });
+document.getElementById('addDemoBtn').addEventListener('click',function(){openModal(addModal);});
 
-/* modals */
 var demoModal=document.getElementById('demoModal'), addModal=document.getElementById('addModal');
 function openModal(m){m.classList.add('open');document.body.style.overflow='hidden';}
 function closeModal(m){m.classList.remove('open');if(!document.querySelector('.modal-backdrop.open'))document.body.style.overflow='';if(window.__simStop){window.__simStop();window.__simStop=null;}}
@@ -922,9 +798,7 @@ document.querySelectorAll('.modal-backdrop').forEach(function(m){
   m.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',function(){closeModal(m);});});
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-backdrop.open').forEach(function(m){closeModal(m);});}});
-document.querySelectorAll('[data-legal]').forEach(function(btn){
-  btn.addEventListener('click',function(){openModal(document.getElementById(btn.dataset.legal));});
-});
+document.querySelectorAll('[data-legal]').forEach(function(btn){btn.addEventListener('click',function(){openModal(document.getElementById(btn.dataset.legal));});});
 
 function embedHTML(u){
   if(/\.(mp4|webm|mov|ogg)(\?|$)/i.test(u))return '<video controls src="'+u+'"></video>';
@@ -935,142 +809,86 @@ function embedHTML(u){
 }
 function fmtT(s){var m=Math.floor(s/60),ss=Math.floor(s%60);return m+':'+String(ss).padStart(2,'0');}
 
-/* ── simulated in-browser player (config-driven) ── */
 function buildSim(area,cfg){
   var h='<div class="sim-player"><div class="sim-stage">';
   cfg.scenes.forEach(function(sc){
     h+='<div class="sim-scene'+(sc.def?' def-slide':'')+'">';
-    if(sc.def){h+='<div class="def-wrap"><h5>Digestion</h5><p><span class="cr">breakdown</span> of food,</p><p>from large <span class="cg">insoluble molecules</span><br>into <span class="cp">small</span> molecules</p><p>which can be used by your body</p></div>';}
+    if(sc.def){h+='<div class="def-wrap"><h5>Digestion</h5><p><span style="color:#C4392F">breakdown</span> of food,</p><p>from large insoluble molecules</p><p>into small molecules</p><p>which can be used by your body</p></div>';}
     if(sc.img){h+='<img src="'+sc.img+'" alt="">';}
     if(sc.extra){h+=sc.extra;}
     h+='</div>';
   });
-  h+='<div class="sim-sub sim-sub-en" id="simEn"></div><div class="sim-sub sim-sub-yo" id="simYo"></div>'+
-     '<span class="sim-badge">EN → YO · live subtitles</span>'+
-     '<button class="sim-play" id="simPlay" aria-label="Pause">❚❚</button>'+
-     '</div><div class="sim-bar"><button class="sim-re" id="simRe" aria-label="Restart">↺</button>'+
-     '<div class="sim-prog" id="simProg"><i id="simFill"></i></div>'+
-     '<span class="sim-time" id="simTime">0:00 / '+fmtT(cfg.len)+'</span></div></div>'+
-     '<div class="ph-row" style="max-width:100%;margin-top:14px"><input id="mediaUrl" placeholder="Have the final cut? Paste MP4 / YouTube URL to replace this preview"><button class="btn btn-ghost btn-sm" id="mediaLoad" type="button">Load</button></div>';
+  h+='<div class="sim-sub sim-sub-en" id="simEn"></div><div class="sim-sub sim-sub-yo" id="simYo"></div><span class="sim-badge">EN → YO · live subtitles</span><button class="sim-play" id="simPlay">Pause</button></div><div class="sim-bar"><button class="sim-re" id="simRe">Restart</button><div class="sim-prog" id="simProg"><i id="simFill"></i></div><span class="sim-time" id="simTime">0:00 / '+fmtT(cfg.len)+'</span></div></div><div class="ph-row" style="max-width:100%;margin-top:16px"><input id="mediaUrl" placeholder="Paste MP4 / YouTube URL to replace preview"><button class="btn btn-sm" id="mediaLoad" type="button" style="margin:0">Load</button></div>';
   area.innerHTML=h;
-  var scenes=area.querySelectorAll('.sim-scene'),en=area.querySelector('#simEn'),yo=area.querySelector('#simYo'),
-      fill=area.querySelector('#simFill'),timeEl=area.querySelector('#simTime'),
-      playBtn=area.querySelector('#simPlay'),t=0,playing=true,last=performance.now(),raf;
-  function frame(now){
-    if(playing){t+=(now-last)/1000;if(t>=cfg.len){t=cfg.len;playing=false;playBtn.textContent='▶';}}
-    last=now;
-    var idx=0;for(var i=0;i<cfg.scenes.length;i++){if(t>=cfg.scenes[i].t)idx=i;}
-    scenes.forEach(function(sc,i){sc.classList.toggle('on',i===idx);});
-    en.textContent=cfg.scenes[idx].en;yo.textContent=cfg.scenes[idx].yo;
-    fill.style.width=(t/cfg.len*100)+'%';timeEl.textContent=fmtT(t)+' / '+fmtT(cfg.len);
-    raf=requestAnimationFrame(frame);
-  }
-  raf=requestAnimationFrame(frame);
-  window.__simStop=function(){cancelAnimationFrame(raf);};
-  playBtn.addEventListener('click',function(){if(!playing&&t>=cfg.len){t=0;}playing=!playing;playBtn.textContent=playing?'❚❚':'▶';});
-  area.querySelector('#simRe').addEventListener('click',function(){t=0;playing=true;playBtn.textContent='❚❚';});
-  area.querySelector('#simProg').addEventListener('click',function(e){var r=e.currentTarget.getBoundingClientRect();t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*cfg.len;playing=true;playBtn.textContent='❚❚';});
+  var scenes=area.querySelectorAll('.sim-scene'),en=area.querySelector('#simEn'),yo=area.querySelector('#simYo'),fill=area.querySelector('#simFill'),timeEl=area.querySelector('#simTime'),playBtn=area.querySelector('#simPlay'),t=0,playing=true,last=performance.now(),raf;
+  function frame(now){if(playing){t+=(now-last)/1000;if(t>=cfg.len){t=cfg.len;playing=false;playBtn.textContent='Play';}}last=now;var idx=0;for(var i=0;i<cfg.scenes.length;i++){if(t>=cfg.scenes[i].t)idx=i;}scenes.forEach(function(sc,i){sc.classList.toggle('on',i===idx);});en.textContent=cfg.scenes[idx].en;yo.textContent=cfg.scenes[idx].yo;fill.style.width=(t/cfg.len*100)+'%';timeEl.textContent=fmtT(t)+' / '+fmtT(cfg.len);raf=requestAnimationFrame(frame);}
+  raf=requestAnimationFrame(frame);window.__simStop=function(){cancelAnimationFrame(raf);};
+  playBtn.addEventListener('click',function(){if(!playing&&t>=cfg.len){t=0;}playing=!playing;playBtn.textContent=playing?'Pause':'Play';});
+  area.querySelector('#simRe').addEventListener('click',function(){t=0;playing=true;playBtn.textContent='Pause';});
+  area.querySelector('#simProg').addEventListener('click',function(e){var r=e.currentTarget.getBoundingClientRect();t=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*cfg.len;playing=true;playBtn.textContent='Pause';});
 }
 
 function openDemo(i){
   var d=allDemos()[i];
   document.getElementById('dmTag').textContent=d.tag;
-  document.getElementById('dmDur').textContent='⏱ '+(d.dur||'—');
+  document.getElementById('dmDur').textContent=d.dur||'—';
   document.getElementById('dmTitle').textContent=d.title;
   document.getElementById('dmDesc').textContent=d.desc;
   var area=document.getElementById('dmMedia');
   if(window.__simStop){window.__simStop();window.__simStop=null;}
   if(d.media){area.innerHTML=embedHTML(d.media);}
   else if(d.sim){buildSim(area,d.sim);}
-  else{
-    area.innerHTML='<div class="ph"><div class="ph-ico">▶</div><p><b>Demo player placeholder.</b> Paste a YouTube, Vimeo or MP4 link below to load your presentation into this slot.</p><div class="ph-row"><input id="mediaUrl" placeholder="https://youtu.be/…  or  .mp4"><button class="btn btn-o btn-sm" id="mediaLoad" type="button">Load</button></div></div>';
-  }
+  else{area.innerHTML='<div class="ph"><p><b>Demo player placeholder.</b> Paste a YouTube, Vimeo, or MP4 link below to load your presentation into this slot.</p><div class="ph-row"><input id="mediaUrl" placeholder="https://youtu.be/… or .mp4"><button class="btn btn-primary btn-sm" id="mediaLoad" type="button">Load</button></div></div>';}
   var loadBtn=area.querySelector('#mediaLoad');
   if(loadBtn)loadBtn.addEventListener('click',function(){
     var v=area.querySelector('#mediaUrl').value.trim(); if(!v)return;
     d.media=v; if(i>=DEFAULT_DEMOS.length){custom[i-DEFAULT_DEMOS.length]=d;try{localStorage.setItem('lf_custom_demos',JSON.stringify(custom));}catch(e){}}
     if(window.__simStop){window.__simStop();window.__simStop=null;}
     area.innerHTML=embedHTML(v);
-    document.getElementById('dmNote').innerHTML='<b>✓ Media loaded.</b> Custom demos persist in this browser; default slots persist via the DEMOS array in the page source.';
+    document.getElementById('dmNote').innerHTML='<b>Media loaded.</b> Custom demos persist in this browser; default slots persist via the DEMOS array in the page source.';
   });
-  document.getElementById('dmNote').innerHTML = (d.sim && !d.media)
-    ? '<b>▶ Built-in showcase.</b> Simulated in-browser preview with live English → Yorùbá subtitles. Paste an MP4 / YouTube URL below the player to swap in the final render.'
-    : (i>=DEFAULT_DEMOS.length)
-      ? '<b>✏️ Editable slot.</b> This is your custom demo — saved in this browser. To remove it, use “Remove” below. <button class="btn btn-ghost btn-sm" id="delDemo" type="button" style="margin-left:8px"> Remove</button>'
-      : '<b>✏️ Easily editable.</b> To change this slot permanently, edit the <code>DEFAULT_DEMOS</code> array in the page source (marked ✏️ EDIT DEMOS HERE).';
+  document.getElementById('dmNote').innerHTML = (d.sim && !d.media) ? '<b>Built-in showcase.</b> Simulated in-browser preview with live English → Yorùbá subtitles. Paste an MP4 / YouTube URL below the player to swap in the final render.' : (i>=DEFAULT_DEMOS.length) ? '<b>Editable slot.</b> This is your custom demo saved in this browser. <button class="btn btn-sm" id="delDemo" type="button" style="margin-left:8px;background:transparent">Remove</button>' : '<b>Easily editable.</b> To change this slot permanently, edit the DEFAULT_DEMOS array in the page source.';
   var del=document.getElementById('delDemo');
   if(del)del.addEventListener('click',function(){custom.splice(i-DEFAULT_DEMOS.length,1);try{localStorage.setItem('lf_custom_demos',JSON.stringify(custom));}catch(e){}renderDemos();closeModal(demoModal);});
   openModal(demoModal);
 }
 
-/* add-demo form */
 document.getElementById('addForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  var t=document.getElementById('adTitle').value.trim();
-  var err=document.getElementById('formErr');
-  if(!t){err.style.display='block';return;} err.style.display='none';
-  custom.push({tag:document.getElementById('adTag').value,dur:document.getElementById('adDur').value.trim()||'new',accent:ACCENTS[(DEFAULT_DEMOS.length+custom.length)%4],title:t,desc:document.getElementById('adDesc').value.trim()||'A brand-new babalang presentation.',media:document.getElementById('adMedia').value.trim()});
-  try{localStorage.setItem('lf_custom_demos',JSON.stringify(custom));}catch(e){}
-  renderDemos(); closeModal(addModal); e.target.reset();
-  openDemo(allDemos().length-1);
+  e.preventDefault();var t=document.getElementById('adTitle').value.trim();var err=document.getElementById('formErr');if(!t){err.style.display='block';return;}err.style.display='none';
+  custom.push({tag:document.getElementById('adTag').value,dur:document.getElementById('adDur').value.trim()||'new',title:t,desc:document.getElementById('adDesc').value.trim()||'A brand-new babalang presentation.',media:document.getElementById('adMedia').value.trim(),thumb:'https://placehold.co/600x400/14213D/FDFBF7?text=Demo'});
+  try{localStorage.setItem('lf_custom_demos',JSON.stringify(custom));}catch(e){}renderDemos();closeModal(addModal);e.target.reset();openDemo(allDemos().length-1);
 });
 
-/* ───────── TRANSCRIPTION BENCH ───────── */
-var BENCH={
- latin:{label:'Latin',dir:'ltr',text:'Gutta cavat lapidem, non vi, sed saepe cadendo. Sic vox antiqua novas linguas Africas invenit.'},
- greek:{label:'Ancient Greek',dir:'ltr',text:'Ἡ ῥανὶς κοιλαίνει τὸν λίθον, οὐ βίᾳ, ἀλλὰ πολλάκις πίπτουσα· οὕτω φωνὴ παλαιὰ ἐν γλώσσαις Ἀφρικῆς ἀναβιοῖ.'},
- sanskrit:{label:'Sanskrit',dir:'ltr',text:'बिन्दुपातेन शिला विदार्यते, न बलेन। एवं पुरातनी वाक् नूतनासु आफ्रिकीयभाषासु पुनर्जायते।'},
- arabic:{label:'Classical Arabic',dir:'rtl',text:'القطرةُ تنحتُ الحجرَ لا بالقوّةِ بل بتكرارِ السقوطِ، وهكذا تولدُ الأصواتُ القديمةُ في لغاتِ أفريقيا.'},
- hebrew:{label:'Biblical Hebrew',dir:'rtl',text:'הַטִּפָּה חוֹצֶבֶת אֶת הָאֶבֶן לֹא בְכֹחַ כִּי אִם בְּרֹב נְטִיפָה; כֵּן קוֹל עַתִּיק נוֹלָד מֵחָדָשׁ בִּלְשׁוֹנוֹת אַפְרִיקָה.'},
- geez:{label:'Geʽez',dir:'ltr',text:'ጠበብት በውድቀታ ንጠት እብነ፡ ኢበኃይል፡ እንዲሁ ጥንታዊ ድምፅ በአፍሪካ ቋንቋዎች እንደገና ይወለዳል'}
-};
-var BENCH_TGT={
- sw:'Tone hutoboa jiwe — si kwa nguvu, bali kwa kudondoka mara nyingi. Hivyo sauti ya kale inazaliwa upya katika lugha za Afrika.',
- yo:'Ìṣan omi ń lá òkúta — kì í ṣe nípa agbára, ṣùgbọ́n nípa títẹ̀ léraléra. Báyìí ni ohùn ìgbàanì ṣe ń bí sí àwọn èdè Áfíríkà.',
- zu:'Iconsi liqobhoza itshe — hhayi ngamandla, kodwa ngokuwa kaningi. Kanjalo izwi lasendulo lizalwa kabusha ezilimini zase-Afrika.',
- ha:'Ɗigon ruwa yana hudda dutshe — ba da ƙarfi ba, sai da maimaituwar faɗuwa. Haka tsohuwar murya ke haihuwa a harsunan Afirka.',
- am:'ጠታ ድንይን ትሆናለች — በኃይል አይደለም በተደጋጋሚ በመውደ ነው እንዲሁም ጥንታዊ ድምፅ በአፍካ ቋንቋዎች እንደገና ይወለዳል።',
- ig:'Ụmụ mmiri na-egwu nkume — ọ bụghị n’ike, kama site n’ịda ugboro ugboro. Otu a ka olu ochie si amụgharị n’asụsụ Afrika.',
- wo:'Tomb bu ndaw dafay yàq xeer bi — du ci doole, waaye ci daanu yu bari. Noonu baat bu yàgg dafay juddu ci làkki Afrig.',
- so:'Dhibicdu waxay qortaa dhagaxa — xoog ma aha, ee waa markay soo noqnoqoto. Sidaas ayaa codkii hore ugu dhashaa luqadaha Afrika.',
- tw:'Nsuo yarewa ɔbo no mu — ɛnyɛ den so, na mmom ɛyɛ ne gu so mpɛn pii. Saa ara na tete nne wo Afrika kasa ahorow mu bio.',
- sn:'Donhwe rinogura dombo — kwete nesimba, asi nekuwira kakawanda. Saizvozvo inzwi rekare rinoberekwa zvakare mumitauro yeAfrika.'
-};
+/* TRANSCRIPTION BENCH */
+var BENCH={latin:{label:'Latin',dir:'ltr',text:'Gutta cavat lapidem, non vi, sed saepe cadendo. Sic vox antiqua novas linguas Africas invenit.'},greek:{label:'Ancient Greek',dir:'ltr',text:'Ἡ ῥανὶς κοιλαίνει τὸν λίθον, οὐ βίᾳ, ἀλλὰ πολλάκις πίπτουσα· οὕτω φωνὴ παλαιὰ ἐν γλώσσαις Ἀφρικῆς ἀναβιοῖ.'},sanskrit:{label:'Sanskrit',dir:'ltr',text:'बिन्दुपातेन शिला विदार्यते, न बलेन। एवं पुरातनी वाक् नूतनासु आफ्रिकीयभाषासु पुनर्जायते।'},arabic:{label:'Classical Arabic',dir:'rtl',text:'القطرةُ تنحتُ الحجرَ لا بالقوّةِ بل بتكرارِ السقوطِ، وهكذا تولدُ الأصواتُ القديمةُ في لغاتِ أفريقيا.'},hebrew:{label:'Biblical Hebrew',dir:'rtl',text:'הַטִּפָּה חוֹצֶבֶת אֶת הָאֶבֶן לֹא בְכֹחַ כִּי אִם בְּרֹב נְטִיפָה; כֵּן קוֹל עַתִּיק נוֹלָד מֵחָדָשׁ בִּלְשׁוֹנוֹת אַפְרִיקָה.'},geez:{label:'Geʽez',dir:'ltr',text:'ጠበብት በውድቀታ ንጠት እብነ፡ ኢበኃይል፡ እንዲሁ ጥንታዊ ድምፅ በአፍሪካ ቋንቋዎች እንደገና ይወለዳል'}};
+var BENCH_TGT={sw:'Tone hutoboa jiwe — si kwa nguvu, bali kwa kudondoka mara nyingi. Hivyo sauti ya kale inazaliwa upya katika lugha za Afrika.',yo:'Ìṣan omi ń lá òkúta — kì í ṣe nípa agbára, ṣùgbọ́n nípa títẹ̀ léraléra. Báyìí ni ohùn ìgbàanì ṣe ń bí sí àwọn èdè Áfíríkà.',zu:'Iconsi liqobhoza itshe — hhayi ngamandla, kodwa ngokuwa kaningi. Kanjalo izwi lasendulo lizalwa kabusha ezilimini zase-Afrika.',ha:'Ɗigon ruwa yana hudda dutshe — ba da ƙarfi ba, sai da maimaituwar faɗuwa. Haka tsohuwar murya ke haihuwa a harsunan Afirka.',am:'ጠታ ድንይን ትሆናለች — በኃይል አይደለም በተደጋጋሚ በመውደ ነው እንዲሁም ጥንታዊ ድምፅ በአፍካ ቋንቋዎች እንደገና ይወለዳል።',ig:'Ụmụ mmiri na-egwu nkume — ọ bụghị n’ike, kama site n’ịda ugboro ugboro. Otu a ka olu ochie si amụgharị n’asụsụ Afrika.',wo:'Tomb bu ndaw dafay yàq xeer bi — du ci doole, waaye ci daanu yu bari. Noonu baat bu yàgg dafay juddu ci làkki Afrig.',so:'Dhibicdu waxay qortaa dhagaxa — xoog ma aha, ee waa markay soo noqnoqoto. Sidaas ayaa codkii hore ugu dhashaa luqadaha Afrika.',tw:'Nsuo yarewa ɔbo no mu — ɛnyɛ den so, na mmom ɛyɛ ne gu so mpɛn pii. Saa ara na tete nne wo Afrika kasa ahorow mu bio.',sn:'Donhwe rinogura dombo — kwete nesimba, asi nekuwira kakawanda. Saizvozvo inzwi rekare rinoberekwa zvakare mumitauro yeAfrika.'};
 var srcSel=document.getElementById('srcSel'), tgtSel=document.getElementById('tgtSel');
 Object.keys(BENCH).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=BENCH[k].label;srcSel.appendChild(o);});
 Object.keys(TARGETS).forEach(function(k){if(BENCH_TGT[k]){var o=document.createElement('option');o.value=k;o.textContent=TARGETS[k];tgtSel.appendChild(o);}});
 var wave=document.getElementById('waveBox');
 for(var i=0;i<36;i++){var b=document.createElement('i');b.style.animationDelay=(Math.random()*0.8).toFixed(2)+'s';b.style.height=(15+Math.random()*70)+'%';wave.appendChild(b);}
 
-var drop=document.getElementById('drop'), fileInput=document.getElementById('fileInput'),
-    chip=document.getElementById('fileChip'), chipName=document.getElementById('chipName'),
-    chipSize=document.getElementById('chipSize'), hint=document.getElementById('benchHint'),
-    runBtn=document.getElementById('runBtn'), progWrap=document.getElementById('progWrap'),
-    progFill=document.getElementById('progFill'), stepLabel=document.getElementById('stepLabel'),
-    results=document.getElementById('results');
+var drop=document.getElementById('drop'), fileInput=document.getElementById('fileInput'),chip=document.getElementById('fileChip'), chipName=document.getElementById('chipName'),chipSize=document.getElementById('chipSize'), hint=document.getElementById('benchHint'),runBtn=document.getElementById('runBtn'), progWrap=document.getElementById('progWrap'),progFill=document.getElementById('progFill'), stepLabel=document.getElementById('stepLabel'),results=document.getElementById('results');
 var selFile=null, busy=false;
-function fmtSize(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';}
 function setFile(f){
   var ok=/audio\/|\.(mp3|wav|m4a|flac|ogg)$/i.test(f.type||'')||/\.(mp3|wav|m4a|flac|ogg)$/i.test(f.name||'');
-  if(!ok){hint.textContent='That doesn’t look like audio — try MP3, WAV, M4A, FLAC or OGG.';hint.classList.add('show');drop.classList.add('shake');setTimeout(function(){drop.classList.remove('shake');},450);return;}
+  if(!ok){hint.textContent='That doesn’t look like audio. Try MP3, WAV, M4A, FLAC, or OGG.';hint.classList.add('show');return;}
   if(f.size>200*1048576){hint.textContent='File is above the 200 MB sandbox limit.';hint.classList.add('show');return;}
-  hint.classList.remove('show'); selFile=f;
-  chipName.textContent=f.name; chipSize.textContent='· '+fmtSize(f.size||3355443);
-  chip.classList.add('show');
+  hint.classList.remove('show'); selFile=f;chipName.textContent=f.name;chipSize.textContent='· '+(f.size? (f.size>1048576?(f.size/1048576).toFixed(1)+' MB':Math.max(1,Math.round(f.size/1024))+' KB'):'3.2 MB');chip.style.display='flex';
 }
 drop.addEventListener('click',function(){fileInput.click();});
 drop.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();fileInput.click();}});
 fileInput.addEventListener('change',function(){if(fileInput.files[0])setFile(fileInput.files[0]);});
-['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('drag');});});
-['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('drag');});});
+['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();});});
+['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();});});
 drop.addEventListener('drop',function(e){var f=e.dataTransfer.files[0];if(f)setFile(f);});
-document.getElementById('fileClear').addEventListener('click',function(){selFile=null;fileInput.value='';chip.classList.remove('show');});
+document.getElementById('fileClear').addEventListener('click',function(){selFile=null;fileInput.value='';chip.style.display='none';});
 document.getElementById('sampleBtn').addEventListener('click',function(){setFile({name:'cicero_in_catilinam_archive.mp3',size:3355443,type:'audio/mpeg'});});
 
-var STEPS=[[14,'Uploading audio…'],[34,'Detecting language & metre…'],[58,'Transcribing classical speech…'],[80,'Aligning African-language translation…'],[96,'Polishing & finalising…'],[100,'Done ✓']];
+var STEPS=[[14,'Uploading audio…'],[34,'Detecting language and metre…'],[58,'Transcribing classical speech…'],[80,'Aligning African-language translation…'],[96,'Polishing and finalising…'],[100,'Done']];
 runBtn.addEventListener('click',function(){
   if(busy)return;
-  if(!selFile){hint.textContent='Add an audio file first — or tap “Use sample recording”.';hint.classList.add('show');drop.classList.add('shake');setTimeout(function(){drop.classList.remove('shake');},450);return;}
+  if(!selFile){hint.textContent='Add an audio file first or tap “Use sample recording”.';hint.classList.add('show');return;}
   hint.classList.remove('show'); busy=true; runBtn.disabled=true; runBtn.style.opacity=.55;
   results.classList.remove('show'); progWrap.classList.add('show'); wave.classList.add('live');
   var delays=[500,900,1400,1300,800,400],acc=0;
@@ -1083,10 +901,9 @@ function finish(){
   document.getElementById('resTgtLabel').textContent='Translation — '+tName;
   document.getElementById('resSrcText').setAttribute('dir',src.dir);
   document.getElementById('resSrcText').style.textAlign=src.dir==='rtl'?'right':'left';
-  document.getElementById('resMeta').textContent='⏱ 00:42 · 1 speaker · confidence 96.4% · demo simulation — production runs our full ASR + MT pipeline.';
+  document.getElementById('resMeta').textContent='00:42 · 1 speaker · confidence 96.4% · demo simulation';
   results.classList.add('show'); progWrap.classList.remove('show'); progFill.style.width='0%';
-  var box=document.getElementById('resSrcText'), txt=src.text, i=0;
-  box.innerHTML='<span class="cursor"></span>';
+  var box=document.getElementById('resSrcText'), txt=src.text, i=0;box.innerHTML='<span class="cursor"></span>';
   var tw=setInterval(function(){i++;box.innerHTML=txt.slice(0,i)+'<span class="cursor"></span>';if(i>=txt.length){clearInterval(tw);box.innerHTML=txt;}},14);
   var rt=document.getElementById('resTgtText'); rt.style.opacity=0; rt.textContent=tgt;
   setTimeout(function(){rt.style.transition='opacity .8s';rt.style.opacity=1;},Math.min(2200,txt.length*14));
@@ -1096,20 +913,19 @@ function finish(){
 document.getElementById('resetBtn').addEventListener('click',function(){results.classList.remove('show');});
 document.getElementById('dlBtn').addEventListener('click',function(){
   if(!window.lastRun)return; var r=window.lastRun;
-  var body='babalang TRANSCRIPT (demo)\n==============================\nSource ('+r.src+'):\n'+r.srcText+'\n\nTranslation ('+r.tgtName+'):\n'+r.tgtText+'\n\n— babalang.org · classical speech, African futures\n';
+  var body='babalang TRANSCRIPT (demo)\n==============================\nSource ('+r.src+'):\n'+r.srcText+'\n\nTranslation ('+r.tgtName+'):\n'+r.tgtText+'\n\n— babalang.org\n';
   var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([body],{type:'text/plain'}));a.download='babalang_transcript.txt';a.click();URL.revokeObjectURL(a.href);
 });
 document.getElementById('copyBtn').addEventListener('click',function(){
   if(!window.lastRun)return; var t=window.lastRun.tgtText, b=document.getElementById('copyBtn');
-  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='✓ Copied!';setTimeout(function(){b.textContent='⧉ Copy translation';},1600);});}
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){b.textContent='Copied!';setTimeout(function(){b.textContent='Copy translation';},1600);});}
 });
 
 /* newsletter */
 document.getElementById('nlForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  this.innerHTML='<span class="ok" style="font-size:1.1rem">✓ Asante! You’re on the list — first field notes arrive next month.</span>';
+  e.preventDefault();this.innerHTML='<span class="ok" style="font-size:1.1rem">You are on the list. First field notes arrive next month.</span>';
 });
 });
 </script>
-</body>
-</html>
+
+</body></html>
